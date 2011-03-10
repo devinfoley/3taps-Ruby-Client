@@ -1,17 +1,3 @@
-#private Integer rpp;
-#private Integer page;
-#private String source;
-#private String category;
-#private String location;
-#private String heading;
-#private String body;
-#private String text;
-#private String externalID;
-#private Date start;
-#private Date end;
-#private Map<String, String> annotations;
-#private Map<String, String> trustedAnnotations;
-#private List<String> retvals = new ArrayList<String>();
 class SearchRequest
   attr_accessor :rpp, :page, :source, :category, :location, :heading,
     :body, :text, :external_id, :start, :end, :annotations, :trusted_annotations, :retvals
@@ -25,10 +11,15 @@ class SearchRequest
   end
 
   def query_params
-    query = Hash.new
-    if (rpp != nil)
-      query[:rpp] = rpp.to_s;
-    end
+    query = ""#Hash.new
+    query += "rpp=#{rpp}&" unless rpp.nil?
+    query += "source=#{source}&" unless source.nil?
+    query += "location=#{location}&" unless location.nil?
+    query == "" ? nil : query
+  end
+end
+
+=begin
     if (page != nil)
       query[:page] = page.to_s;
     end
@@ -75,11 +66,14 @@ class SearchRequest
       query[:trusted_annotations] = ActiveSupport::JSON.encode(trusted_annotations)
     end
     if (retvals != nil)
-       query[:retvals] = retvals.to_str  #queryParams.put("retvals", Utils.join(retvals));
+       #query[:retvals] = retvals.to_str  #queryParams.put("retvals", Utils.join(retvals));
     end
-    query
+
+    "?" + query.each(""){|option| "#{option[0]}=#{option[1]}" }
+    
   end
-end
+=end
+
 #	public Map<String, String> getQueryParams() {
 #		final Map<String, String> queryParams = new HashMap<String, String>();
 #
