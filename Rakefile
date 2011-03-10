@@ -12,7 +12,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "3taps-Ruby-Client"
+  gem.name = "3threetaps-client"
   gem.homepage = "https://github.com/3taps/3taps-Ruby-Client"
   gem.license = "MIT"
   gem.summary = %Q{A Ruby gem for accessing the 3taps API}
