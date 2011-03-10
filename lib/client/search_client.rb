@@ -2,27 +2,27 @@ class SearchClient < Client
 
   def search(search_request)
     response = execute_get("/search", search_request.get_query_params)
-    ActiveSupport::JSON.decode(response)
+    SearchResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   def range(range_request)
     response = execute_get("/search", range_request.get_query_params)
-    ActiveSupport::JSON.decode(response)
+    RangeResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   def summary(summary_request)
     response = execute_get("/search", summary_request.get_query_params)
-    ActiveSupport::JSON.decode(response)
+    SummaryResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   def count(count_request)
     response = execute_get("/search/count", count_request.get_query_params)
-    ActiveSupport::JSON.decode(response)["count"]
+    CountResponse.from_json(ActiveSupport::JSON.decode(response)["count"])
   end
 
   def best_match(search_request)
     response = execute_get("/search/bestMatch", search_request.get_query_params)
-    ActiveSupport::JSON.decode(response)
+    BestMatchResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
 end

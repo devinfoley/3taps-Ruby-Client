@@ -27,4 +27,3 @@ require 'models/posting'
 require 'models/source'
 require 'models/annotations/annotation'
 require 'models/annotations/annotation_option'
-
