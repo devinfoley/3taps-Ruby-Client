@@ -8,7 +8,7 @@ class Client
 
   def execute_get( path, params = nil )
     address = params.nil? ? path : path + '?' + params 
-    request = Curl::Easy.new("#{@baseURL}:#{@port}" + address)    
+    request = Curl::Easy.new("#{@baseURL}:#{@port}" + address) 
     begin
       request.perform
     rescue
