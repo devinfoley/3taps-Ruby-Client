@@ -33,10 +33,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport (~> 3.0.0)
   bundler (~> 1.0.0)
-  curb
+  curb (~> 0.7.9)
   jeweler (~> 1.5.2)
   rcov
   rspec
   shoulda
-  supermodel
+  supermodel (~> 0.1.4)

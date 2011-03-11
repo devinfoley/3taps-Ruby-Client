@@ -1,6 +1,7 @@
 source "http://rubygems.org"
-gem "supermodel"
-gem "curb"
+gem "supermodel", "~> 0.1.4"
+gem "curb", "~> 0.7.9"
+gem "activesupport", "~> 3.0.0"
 # Add dependencies required to use your gem here.
 # Example:
 #   gem "activesupport", ">= 2.3.5"

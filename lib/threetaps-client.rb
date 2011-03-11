@@ -1,3 +1,9 @@
+require 'rubygems'
+require 'cgi'
+require 'supermodel'
+require 'active_support'
+require 'curb'
+
 require 'client/client'
 require 'client/search_client'
 require 'client/posting_client'
