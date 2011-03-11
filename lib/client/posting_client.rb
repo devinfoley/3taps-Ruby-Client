@@ -2,7 +2,7 @@ class PostingClient < Client
 
   def get_posting(post_key)
     response = execute_get("/posting/get/" + post_key)
-    ActiveSupport::JSON.decode(response)
+    Posting.new(ActiveSupport::JSON.decode(response))
   end
 
   def create_posting(posting)
