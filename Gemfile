@@ -1,4 +1,6 @@
 source "http://rubygems.org"
+gem "supermodel"
+gem "curb"
 # Add dependencies required to use your gem here.
 # Example:
 #   gem "activesupport", ">= 2.3.5"
@@ -11,6 +13,4 @@ group :development do
   gem "jeweler", "~> 1.5.2"
   gem "rcov", ">= 0"
   gem "rspec"
-  gem "supermodel"
-  gem "curb"
 end
