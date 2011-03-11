@@ -1,3 +1,3 @@
 class AnnotationOption < SuperModel::Base
-  attributes :value, :subAnnotation
+  attributes :value, :sub_annotation
 end

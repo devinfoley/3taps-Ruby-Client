@@ -1,6 +1,8 @@
 class SearchRequest
+  # annotations attribute should be a Hash object
   attr_accessor :rpp, :page, :source, :category, :location, :heading,
-    :body, :text, :external_id, :start, :end, :annotations, :trusted_annotations, :retvals
+    :body, :text, :external_id, :start, :end, :annotations,
+    :trusted_annotations, :retvals
 
   def add_retval(retval)
     @retvals << retval

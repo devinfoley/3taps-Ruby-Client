@@ -1,8 +1,9 @@
 class Annotation < SuperModel::Base
-  attributes :name, :annotationType, :options
-  def options=(options)
-    @attributes[:options] = options || []
+  attributes :name, :annotation_type, :options
+  def initialize
+    @attributes[:options] = []
   end
+  
   class AnnotaionType
     SELECT = 1
     STRING = 2
