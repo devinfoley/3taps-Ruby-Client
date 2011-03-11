@@ -7,7 +7,7 @@ describe SearchClient do
 
   it "should send GET request and create SearchResponse from result" do
     search_request = mock("search_request")
-    search_request.should_receive(:get_query_params)
+    search_request.should_receive(:query_params)
     search_response = mock "search_response"
     SearchResponse.should_receive(:from_json).and_return search_response
     
