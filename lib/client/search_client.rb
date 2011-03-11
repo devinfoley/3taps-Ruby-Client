@@ -11,7 +11,7 @@ class SearchClient < Client
   end
 
   def summary(summary_request)
-    response = execute_get("/search", summary_request.query_params)
+    response = execute_get("/search/summary", summary_request.query_params)
     SummaryResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
