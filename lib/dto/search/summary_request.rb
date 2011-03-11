@@ -3,11 +3,9 @@
 class SummaryRequest
   attr_accessor :search_request, :dimension
   
-  def get_query_params
-    query_params = search_request.get_query_params
-    if (dimension != nil)
-      query_params[:dimension] = dimension
-    end
+  def query_params
+    query_params = search_request.query_params
+    query_params += "dimension=#{CGI.escape(dimension)}&"
     query_params
   end
 end
