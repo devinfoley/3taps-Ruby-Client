@@ -1,10 +1,15 @@
+# PostingClient class handles all posting routines: getting a posting, creating,
+# deleting, updating and checking if one exists.
 class PostingClient < Client
 
   def get_posting(post_key)
     response = execute_get("/posting/get/" + post_key)
-    Posting.new(ActiveSupport::JSON.decode(response))
+    ActiveSupport::JSON.decode(response)
   end
 
+  # Method create_posting receives one parameter of type Posting, creates
+  # params hash for it and sends via POST.
+  # Returns CreateResponse object
   def create_posting(posting)
     params = "posts=#{posting}"
     response = execute_post("/posting/create", params)
