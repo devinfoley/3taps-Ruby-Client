@@ -4,6 +4,7 @@ require 'rspec'
 require 'supermodel'
 require 'curb'
 require 'threetaps-client'
+require 'cgi'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
