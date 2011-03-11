@@ -11,9 +11,8 @@ class RangeRequest
     @fields << field
   end
 
-  def get_query_params
+  def query_params
     query_params = search_request.query_params
-    #query_params[:fields] = fields.join(',')       #queryParams.put("fields", Utils.join(fields));
     query_params += "fields=#{CGI.escape(fields.join(','))}&"
     query_params
   end
