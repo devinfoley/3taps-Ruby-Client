@@ -5,8 +5,10 @@ describe PostingClient do
     @posting_client = PostingClient.new
   end
 
-  it "should desc" do
-    # TODO
+  it "should return Posting object" do
+    Curl::Easy.stub!(:new).and_return mock("Request", :perform => nil, :body_str => "")
+    ActiveSupport::JSON.stub!(:decode).and_return []
+    @posting_client.get_posting("").is_a?(Posting).should be_true
   end
 end
 
