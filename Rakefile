@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.license = "MIT"
   gem.summary = %Q{A Ruby gem for accessing the 3taps API}
   gem.description = %Q{A Ruby gem for accessing the 3taps API. See more at http://developers.3taps.net}
-  gem.email = "marat@svitla.com"
-  gem.authors = ["marat"]
+  gem.email = "developers@3taps.com"
+  gem.authors = ["3taps.com"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
