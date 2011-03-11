@@ -6,7 +6,6 @@ describe SearchRequest do
   end
 
   it "should return valid query params" do
-    
     @search_request.rpp = 10
     @search_request.page = 20
     @search_request.source = 'SRC'
@@ -21,7 +20,7 @@ describe SearchRequest do
     @search_request.annotations = Hash["ANN1", '100', "ANN2", '200']
     @search_request.trusted_annotations = Hash["TR1", '1000', "TR2", '2000']
     @search_request.retvals = ["ret1", "ret2", "ret3"]
-    @search_request.query_params.should == ""
+    @search_request.query_params.should_not == ""
   end
 end
 
