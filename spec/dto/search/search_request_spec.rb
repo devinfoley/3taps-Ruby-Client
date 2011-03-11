@@ -21,7 +21,6 @@ describe SearchRequest do
     #@search_request.trusted_annotations = Hash["TR1", '1000', "TR2", '2000']
     @search_request.retvals = ["category", "location", "heading", "externalURL", "timestamp", "postKey", "source", "image"]
     @search_request.query_params.should_not == ""
-    p @search_request.query_params
   end
 end
 
