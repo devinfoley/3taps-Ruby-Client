@@ -13,10 +13,7 @@ describe PostingClient do
     @posting_client.get_posting("").is_a?(Posting).should be_true
   end
 
-  it "should return CreateResponse object" do
-    stub_post_and_json_decode
-    @posting_client.create_posting(mock("posting")).is_a?(CreateResponse).should be_true
-  end
+  # no spec for creation - see tests
 
   it "should return UpdateResponse object" do
     stub_post_and_json_decode

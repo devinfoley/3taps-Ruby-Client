@@ -12,24 +12,41 @@ class PostingClient < Client
   end
 
   # Saves a new posting in 3taps.
-  def create_posting(posting)
-    params = "posts=#{posting}"
+  def create_posting(postings)
+    postings = [postings] unless postings.is_a? Array
+
+    data = "["
+    data << postings.collect{|posting| posting.to_json}.join(',')
+    data << "]"
+
+    # GET
+    params = "posts=#{data}"
     response = execute_get("/posting/create", params)
-    CreateResponse.from_json(ActiveSupport::JSON.decode(response))
+    # POST
+#    params = {:posts => data} #"posts=#{data}"
+#    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
+    CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
   # Updates postings on 3taps.
-  def update_posting(posting)
-    params = "data=#{posting}"
+  def update_posting(postings)
+    postings = [postings] unless postings.is_a? Array
+
+    data = "["
+    data << postings.collect{|posting| posting.to_json_for_update}.join(',')
+    data << "]"
+
+    params = "data=#{CGI.escape(data)}"
     response = execute_post("/posting/update", params)
     UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   # Deletes postings from 3taps.
-  def delete_posting(post_key)
-    params = "data=#{CGI.escape(ActiveSupport::JSON.encode([post_key]))}"
+  def delete_posting(post_keys)
+    post_keys = [post_keys] unless post_keys.is_a? Array
+    params = "data=#{CGI.escape(ActiveSupport::JSON.encode(post_keys))}"
     response = execute_post("/posting/delete", params)
-    DeleteResponse.from_json(ActiveSupport::JSON.decode(response))
+    DeleteResponse.new(ActiveSupport::JSON.decode(response))
   end
 
   # Returns information on the existence of postings.
