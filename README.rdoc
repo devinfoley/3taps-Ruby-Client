@@ -9,8 +9,10 @@
 To perform a search you need to
 1. create SearchRequest object and fill its attributes
 
-   request = SearchRequest.new <br>
-   request.rpp = 10 <br>
+   request = SearchRequest.new
+
+   request.rpp = 10
+
    request.text = "porsche"
 
 2. create SearchClient object
@@ -23,8 +25,10 @@ To perform a search you need to
 
 4. now you can operate with search results:
 
-   postings = response.results <br>
-   quantity = response.num_results <br>
+   postings = response.results
+
+   quantity = response.num_results
+
    execution_time = response.exec_time_ms
 
 == Contributing to threetaps-client
