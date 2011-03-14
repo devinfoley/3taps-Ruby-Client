@@ -13,7 +13,7 @@ class RangeRequest
 
   def query_params
     query_params = search_request.query_params
-    query_params += "fields=#{CGI.escape(fields.join(','))}&"
+    query_params += "fields=#{CGI.escape(fields.join(','))}"
     query_params
   end
 
