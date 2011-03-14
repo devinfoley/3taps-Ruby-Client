@@ -14,15 +14,16 @@ class Client
     rescue
       "Some Error with Request."
     end
+    p "request.body_str: " + request.body_str
     request.body_str
   end
 
   def execute_post( path, params = nil )
-    c = Curl::Easy.http_post("{@baseURL}:#{@port}/#{path}",params) do |curl|
+    c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params) do |curl|
       curl.headers['Accept'] = 'application/json'
       curl.headers['Content-Type'] = 'application/json'
       curl.headers['Api-Version'] = '2.2'
     end
-    ActiveSupport::JSON.decode(c.body_str)
+    c.body_str
   end	
 end
