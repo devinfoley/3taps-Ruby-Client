@@ -14,7 +14,6 @@ class Client
     rescue
       "Some Error with Request."
     end
-    p "request.body_str: " + request.body_str
     request.body_str
   end
 
