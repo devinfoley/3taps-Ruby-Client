@@ -2,9 +2,12 @@
 # deleting, updating and checking if one exists.
 class PostingClient < Client
 
+  # Method get_posting receives one parameter of type postKey, creates
+  # params hash for it and sends via POST.
+  # Returns Posting object
   def get_posting(post_key)
     response = execute_get("/posting/get/" + post_key)
-    ActiveSupport::JSON.decode(response)
+    Posting.new(ActiveSupport::JSON.decode(response))
   end
 
   # Method create_posting receives one parameter of type Posting, creates
@@ -13,24 +16,30 @@ class PostingClient < Client
   def create_posting(posting)
     params = "posts=#{posting}"
     response = execute_post("/posting/create", params)
-    ActiveSupport::JSON.decode(response)
+    CreateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
+  # Method update_posting receives one parameter of type Posting, creates
+  # params hash for it and sends via POST.
+  # Returns UpdateResponse objec
   def update_posting(posting)
     params = "data=#{posting}"
     response = execute_post("/posting/update", params)
-    ActiveSupport::JSON.decode(response)
+    UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
+  # Method delete__posting receives one parameter of type array postKey, creates
+  # params hash for it and sends via POST.
+  # Returns DeleteResponse object
   def delete_posting(post_key)
-    params = "data=#{CGI.escape(ActiveSupport::JSON.encode([post_key]))}"
-    response = execute_post("/posting/delete", params)
-    ActiveSupport::JSON.decode(response)
+    params = '#{post_key}'
+    response = execute_get("/posting/delete", params)
+    DeleteResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   def exists(posting)
     params = "ids=#{posting}"
-    response = execute_post("/posting/exists", params)
+    response =  execute_post("/posting/exists", params)
     ActiveSupport::JSON.decode(response)
   end
   
