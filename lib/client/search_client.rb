@@ -31,7 +31,7 @@ class SearchClient < Client
   #
   def summary(summary_request)
     response = execute_get("/search/summary", summary_request.query_params)
-    SummaryResponse.from_json(ActiveSupport::JSON.decode(response))
+    SummaryResponse.new(ActiveSupport::JSON.decode(response))
   end
 
   # Returns the total number of postings that match the given Common Search Criteria.
@@ -57,7 +57,7 @@ class SearchClient < Client
   # postings_quantity = response.num_results
   def best_match(keywords)
     response = execute_get("/search/best-match", "keywords=#{keywords}")
-    BestMatchResponse.from_json(ActiveSupport::JSON.decode(response))
+    BestMatchResponse.new(ActiveSupport::JSON.decode(response))
   end
 
 end
