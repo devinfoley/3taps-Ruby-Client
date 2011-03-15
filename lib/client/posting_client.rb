@@ -8,7 +8,7 @@ class PostingClient < Client
   # Returns information about a single posting.
   def get_posting(post_key)
     response = execute_get("/posting/get/" + post_key)
-    Posting.new(decode(response))
+    Posting.new(ActiveSupport::JSON.decode(response))
   end
 
   # Saves a new posting in 3taps.
@@ -23,9 +23,9 @@ class PostingClient < Client
     params = "posts=#{data}"
     response = execute_get("/posting/create", params)
     # POST
-    #    params = {:posts => data} #"posts=#{data}"
-    #    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
-    CreateResponse.from_array(decode(response))
+#    params = {:posts => data} #"posts=#{data}"
+#    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
+    CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
   # Updates postings on 3taps.
@@ -38,7 +38,7 @@ class PostingClient < Client
 
     params = "data=#{CGI.escape(data)}"
     response = execute_post("/posting/update", params)
-    UpdateResponse.from_json(decode(response))
+    UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   # Deletes postings from 3taps.
@@ -46,13 +46,13 @@ class PostingClient < Client
     post_keys = [post_keys] unless post_keys.is_a? Array
     params = "data=#{CGI.escape(ActiveSupport::JSON.encode(post_keys))}"
     response = execute_post("/posting/delete", params)
-    DeleteResponse.new(decode(response))
+    DeleteResponse.new(ActiveSupport::JSON.decode(response))
   end
 
   # Returns information on the existence of postings.
   def exists_posting(posting)
     params = "ids=#{posting}"
     response = execute_post("/posting/exists", params)
-    decode(response)
+    ActiveSupport::JSON.decode(response)
   end
 end
