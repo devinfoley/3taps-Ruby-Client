@@ -18,7 +18,7 @@ describe SearchClient do
     range_request = mock "range_request"
     range_request.should_receive(:query_params)
     range_response = mock "range_response"
-    RangeResponse.should_receive(:from_json).and_return range_response
+    RangeResponse.should_receive(:new).and_return range_response
 
     @search_client.range(range_request).should == range_response
   end
@@ -27,7 +27,7 @@ describe SearchClient do
     summary_request = mock "summary_request"
     summary_request.should_receive(:query_params)
     summary_response = mock "summary_response"
-    SummaryResponse.should_receive(:from_json).and_return summary_response
+    SummaryResponse.should_receive(:new).and_return summary_response
 
     @search_client.summary(summary_request).should == summary_response
   end

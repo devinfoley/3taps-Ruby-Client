@@ -5,4 +5,5 @@ class SummaryResponse < Struct.new(:totals, :execTimeMs) do
       execTimeMs
     end
   end
+  include HashedInitializer
 end
