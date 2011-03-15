@@ -30,7 +30,10 @@ class TestSearchClient < Test::Unit::TestCase
     search_request.annotations = {:Make => "porsche"}
     client = SearchClient.new
     count_response = client.count(search_request)
+    p count_response
     assert_equal CountResponse, count_response.class
+    assert_not_equal nil , count_response.count
+
   end
 
   should "get the summary result" do
@@ -43,12 +46,10 @@ class TestSearchClient < Test::Unit::TestCase
   end
 
   should "get the best match result" do
-    search_request = SearchRequest.new
-    search_request.category = 'VAUT'
-    search_request.annotations = {:Make => "porsche"}
+    search_keywords = "iPad,Apple,iPhone"
     client = SearchClient.new
-    best_match_response = client.best_match(search_request)
+    best_match_response = client.best_match(search_keywords)
     assert_equal BestMatchResponse, best_match_response.class
-    assert_equal 'VAUT', best_match_response.category
+    assert_equal 'SELE', best_match_response.category
   end
 end

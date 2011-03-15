@@ -19,7 +19,7 @@ class SearchClient < Client
   #
   def range(range_request)
     response = execute_get("/search", range_request.query_params)
-    RangeResponse.from_json(ActiveSupport::JSON.decode(response))
+    RangeResponse.new(ActiveSupport::JSON.decode(response))
   end
 
   # Returns the total number of postings found in 3taps, across the given dimension,
@@ -44,7 +44,7 @@ class SearchClient < Client
   # postings_quantity = response.count
   def count(search_request)
     response = execute_get("/search/count", search_request.query_params)
-    CountResponse.from_json(ActiveSupport::JSON.decode(response))
+    CountResponse.new(ActiveSupport::JSON.decode(response))
   end
 
   # Returns the 3taps category associated with the keywords, along with the number

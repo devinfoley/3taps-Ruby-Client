@@ -35,14 +35,14 @@ describe SearchClient do
     search_request = mock "search_request"
     search_request.should_receive(:query_params)
     count_response = mock "count_response"
-    CountResponse.should_receive(:from_json).and_return count_response
+    CountResponse.should_receive(:new).and_return count_response
 
     @search_client.count(search_request).should == count_response
   end
   it "should send GET request and create BestMatchResponse from result" do
     keywords = ""
     bestmatch_response = mock "bestmatch_response"
-    BestMatchResponse.should_receive(:from_json).and_return bestmatch_response
+    BestMatchResponse.should_receive(:new).and_return bestmatch_response
 
     @search_client.best_match(keywords).should == bestmatch_response
   end
