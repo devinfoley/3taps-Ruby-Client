@@ -4,24 +4,22 @@ describe ReferenceClient do
   before(:each) do
     @reference_client = ReferenceClient.new
   end
-=begin
+
   it "should send GET request and create Categories array from result" do
     categories_response = mock "categories_array"
-    Category.should_receive(:new).and_return categories_response
+    Category.should_receive(:from_json).and_return categories_response
 
     @reference_client.get_categories.should == categories_response
   end
 
-
-
   it "should send GET request and create Category from result" do
     category_response = mock "category"
-    category_code = mock "category_code"
-    Category.should_receive(:from_json).and_return category_response
+    category_code = "VAUT"
+    Category.should_receive(:new).and_return category_response
 
-    @reference_client.get_category("VAUT").should == category_response
+    @reference_client.get_category(category_code).should == category_response
   end
-=end
+
   it "should send GET request and create Locations array from result" do
     locations_response = mock "locations_array"
     Location.should_receive(:from_json).and_return locations_response

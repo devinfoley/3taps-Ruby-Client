@@ -6,9 +6,6 @@ class Category < SuperModel::Base
 
   def self.from_json(json)
     res = []
-    #    res.success = json["success"]
-    #    res.num_results = json["numResults"]
-    #    res.exec_time_ms = json["execTimeMs"]
 
     json.each do |category|
       cat = Category.new({
