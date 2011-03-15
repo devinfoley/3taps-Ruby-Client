@@ -33,6 +33,7 @@ class StatusClient < Client
     params = "data={#{CGI.escape(data)}}"
     response = execute_post("/status/get", params)
     decode(response)
+  end
 
   # Get the current system status.
   def system_status
