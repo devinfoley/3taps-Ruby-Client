@@ -30,7 +30,6 @@ class TestSearchClient < Test::Unit::TestCase
     search_request.annotations = {:Make => "porsche"}
     client = SearchClient.new
     count_response = client.count(search_request)
-    p count_response
     assert_equal CountResponse, count_response.class
     assert_not_equal nil , count_response.count
 
