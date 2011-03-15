@@ -15,10 +15,11 @@ describe SearchClient do
   end
 
   it "should send GET request and create RangeResponse from result" do
+    stub_get_and_json_decode
     range_request = mock "range_request"
     range_request.should_receive(:query_params)
     range_response = mock "range_response"
-    RangeResponse.should_receive(:new).and_return range_response
+    RangeResponse.should_receive(:from_json).and_return range_response
 
     @search_client.range(range_request).should == range_response
   end
