@@ -6,7 +6,7 @@ class ReferenceClient < Client
 
   def get_category(category_code)
     response = execute_get("/reference/category/" + category_code)
-    Category.new(decode(response))
+    Category.new(decode(response)[0])
   end
 
   def get_locations
