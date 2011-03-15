@@ -13,11 +13,16 @@ require 'client/search_client'
 require 'client/status_client'
 
 require 'dto/hashed_initializer'
+
 require 'dto/geocoder/geocoder_request'
 require 'dto/geocoder/geocoder_response'
+
 require 'dto/posting/create_response'
 require 'dto/posting/delete_response'
 require 'dto/posting/update_response'
+require 'dto/posting/get_request'
+require 'dto/posting/get_response'
+
 require 'dto/search/best_match_response'
 require 'dto/search/count_response'
 require 'dto/search/range_response'
