@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestRangeRequest < Test::Unit::TestCase
-  should "get numResults attribute" do
+  should "return valid http params string" do
     search_request = SearchRequest.new
     search_request.category = 'VAUT'
     search_request.annotations = {:Make => "porsche"}
