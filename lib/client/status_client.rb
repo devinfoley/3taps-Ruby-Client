@@ -25,16 +25,19 @@ class StatusClient < Client
   end
 
   # Get status history for postings.
-  def get_status(posting)
-    params = "data=#{posting}"
-    response = execute_get("/status/get", params)
+  def get_status(postings)
+    postings = [postings] unless postings.is_a? Array
+    data = "'ids':["
+    data << postings.collect{|posting| posting.to_json}.join(',')
+    data << "]"
+    params = "data={#{CGI.escape(data)}}"
+    response = execute_post("/status/get", params)
     decode(response)
-  end
 
   # Get the current system status.
-  def system_status()
+  def system_status
     response = execute_get("/status/system")
-    decode(response)
+    Message.from_json(decode(response))  
   end
 
 end
