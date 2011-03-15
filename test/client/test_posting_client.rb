@@ -2,7 +2,7 @@ require 'helper'
 
 class TestPostingClient < Test::Unit::TestCase
   should "test single posting creation and deletion" do
-    client = PostingClient.new
+    client = PostingClient.new#("localhost", 3000)
     posting = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting",
@@ -15,7 +15,11 @@ class TestPostingClient < Test::Unit::TestCase
 
     posting_key = response.first.post_key
 
+    posting.postKey = posting_key
+    posting.body = "posting"
     response = client.update_posting(posting)
+    p response
+    assert_equal true, response.success
 
     response = client.delete_posting(posting_key)
     assert_equal DeleteResponse, response.class
@@ -23,7 +27,7 @@ class TestPostingClient < Test::Unit::TestCase
   end
 
   should "test multiple postings creation and deletion" do
-    client = PostingClient.new
+    client = PostingClient.new#("localhost", 3000)
     posting1 = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting1",
