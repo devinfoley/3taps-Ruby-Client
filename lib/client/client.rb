@@ -18,11 +18,7 @@ class Client
   end
 
   def execute_post( path, params = nil )
-    c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params) do |curl|
-      curl.headers['Accept'] = 'application/json'
-      curl.headers['Content-Type'] = 'application/json'
-      curl.headers['Api-Version'] = '2.2'
-    end
+    c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params) 
     c.body_str
   end
   private
