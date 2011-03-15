@@ -13,7 +13,7 @@ class TestStatusClient < Test::Unit::TestCase
       :timestamp => Time.now
     )
     response = posting_client.create_posting(posting)
-    first_key = response.postKey
+    first_key = response.first.postKey
     existing_posting =  posting_client.get_posting(first_key)
     client = StatusClient.new
     response = client.get_status(existing_posting)
