@@ -32,7 +32,7 @@ class StatusClient < Client
     data << "]"
     params = {:data => data}
     response = execute_post("/status/get", ActiveSupport::JSON.encode(params))
-    decode(response)
+    GetResponse.from_json(decode(response))
   end
 
   # Get the current system status.
