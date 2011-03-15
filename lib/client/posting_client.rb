@@ -20,11 +20,12 @@ class PostingClient < Client
     data << "]"
 
     # GET
-    params = "posts=#{data}"
-    response = execute_get("/posting/create", params)
+#    params = "posts=#{data}"
+#    response = execute_get("/postings/create", params)
     # POST
-#    params = {:posts => data} #"posts=#{data}"
-#    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
+    params = "posts=#{data}"
+    response = execute_post("posting/create", params)
+    p response
     CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
@@ -36,16 +37,19 @@ class PostingClient < Client
     data << postings.collect{|posting| posting.to_json_for_update}.join(',')
     data << "]"
 
-    params = "data=#{CGI.escape(data)}"
-    response = execute_post("/posting/update", params)
+    params = "data=#{data}"
+    p params
+    response = execute_post("posting/update", params)
+    p response
     UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
   # Deletes postings from 3taps.
   def delete_posting(post_keys)
     post_keys = [post_keys] unless post_keys.is_a? Array
-    params = "data=#{CGI.escape(ActiveSupport::JSON.encode(post_keys))}"
-    response = execute_post("/posting/delete", params)
+    params = "data=['#{post_keys.join("','")}']"
+    response = execute_post("posting/delete", params)
+    p response
     DeleteResponse.new(ActiveSupport::JSON.decode(response))
   end
 
