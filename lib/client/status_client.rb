@@ -30,8 +30,8 @@ class StatusClient < Client
     data = "'ids':["
     data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"
-    params = "data={#{CGI.escape(data)}}"
-    response = execute_post("/status/get", params)
+    params = {:data => data}
+    response = execute_post("/status/get", ActiveSupport::JSON.encode(params))
     decode(response)
   end
 
