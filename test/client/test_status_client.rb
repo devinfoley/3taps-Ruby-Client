@@ -6,17 +6,18 @@ class TestStatusClient < Test::Unit::TestCase
   end
 
   should "test get status" do
-    res = GetRequest.new
-    posting = []
-    res.source = 'CRAIG'
-    res.externalID= 3434399120
-    posting << res
-    res.source = 'CRAIG'
-    res.externalID = 33334399121
-    posting << res
+    posting_client = PostingClient.new
+    posting = Posting.new(
+      :source => "3TAPS",
+      :heading => "Svitla posting",
+      :timestamp => Time.now
+    )
+    response = posting_client.create_posting(posting)
+    first_key = response.postKey
+    existing_posting =  posting_client.get_posting(first_key)
     client = StatusClient.new
-    get_response = client.get_status(posting)
-    assert_equal GetResponse, get_response.class
+    response = client.get_status(existing_posting)
+    assert_equal GetResponse, response.class
   end
 
   should "test system status" do
