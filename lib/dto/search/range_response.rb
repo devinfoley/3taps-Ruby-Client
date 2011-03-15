@@ -5,10 +5,6 @@ class RangeResponse < Struct.new(:ranges)
     include HashedInitializer
   end
   def self.from_json(json)
-    res = self.new(:ranges => [])
-    json.each_pair do |key, value|
-      res.ranges << Range.new( :field => key, :max => value["max"], :min => value["min"])
-    end
-    res
+    res = self.new(:ranges => json.enum_for(:each_pair).collect { |key, value| Range.new( :field => key, :max => value["max"], :min => value["min"])})
   end
 end
