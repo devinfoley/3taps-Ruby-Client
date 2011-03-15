@@ -6,7 +6,7 @@ class TestStatusClient < Test::Unit::TestCase
   end
 
   should "test get status" do
-    res = PostingRequest.new
+    res = GetRequest.new
     posting = []
     res.source = 'CRAIG'
     res.externalID= 3434399120
