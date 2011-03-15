@@ -18,8 +18,8 @@ class SearchClient < Client
   # for range-based UI filters.
   #
   def range(range_request)
-    response = execute_get("/search", range_request.query_params)
-    RangeResponse.new(decode(response))
+    response = execute_get("/search/range", range_request.query_params)
+    RangeResponse.from_json(decode(response))
   end
 
   # Returns the total number of postings found in 3taps, across the given dimension,

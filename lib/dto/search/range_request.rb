@@ -9,15 +9,11 @@
 # range_request.search_request = search_request
 # range_request.fields = ['year', 'price']
 #
-class RangeRequest
-  attr_accessor :search_request, :fields
-
-  def initialize
-    @fields = []
-  end
+class RangeRequest < Struct.new(:search_request, :fields)
+  include HashedInitializer
 
   def add_field(field)
-    @fields << field
+    fields << field
   end
 
   def query_params
