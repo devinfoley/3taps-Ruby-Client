@@ -6,10 +6,12 @@ describe GeocoderClient do
   end
 
   it "should send GET request and create GeocoderResponse from result" do
+    geocoder_param = ""
     geocoder_response = mock "geocoder_response"
+    ActiveSupport::JSON.should_receive(:encode).with({:data => geocoder_param})
     ActiveSupport::JSON.should_receive(:decode)
-    GeocoderResponse.should_receive(:from_json).and_return geocoder_response
-    @geocoder_client.geocode("").should == geocoder_response
+    GeocoderResponse.should_receive(:from_array).and_return geocoder_response
+    @geocoder_client.geocode(geocoder_param).should == geocoder_response
   end
 end
 

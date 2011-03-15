@@ -7,8 +7,6 @@ describe PostingClient do
   before(:each) do
     @posting_client = PostingClient.new
   end
-=begin
-
 
   it "should return Posting object" do
     stub_get_and_json_decode
@@ -31,6 +29,5 @@ describe PostingClient do
     stub_post_and_json_decode
     @posting_client.exists(mock("")).should be_true
   end
-=end
 end
 
