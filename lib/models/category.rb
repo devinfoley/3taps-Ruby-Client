@@ -9,7 +9,7 @@ class Category < SuperModel::Base
     #    res.success = json["success"]
     #    res.num_results = json["numResults"]
     #    res.exec_time_ms = json["execTimeMs"]
-    
+
     json.each do |category|
       cat = Category.new({
           :group       => category["group"],

@@ -1,5 +1,7 @@
-#private String category;
-#private Integer numResults;
-class BestMatchResponse
-  attr_accessor :category, :numResults
+class BestMatchResponse < Struct.new(:category, :numResults) do
+    def num_results
+      numResults
+    end
+  end
+  include HashedInitializer
 end

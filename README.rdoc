@@ -10,16 +10,26 @@ To perform a search you need to
 1. create SearchRequest object and fill its attributes
 
    request = SearchRequest.new
+
    request.rpp = 10
+
    request.text = "porsche"
 
 2. create SearchClient object
 
    client = SearchClient.new
 
-3. call search method on client with request as a parameter and get an array of postings.
+3. call search method on client with request as a parameter and get an SearchResponse object.
 
-   postings = client.search(request)
+   response = client.search(request)
+
+4. now you can operate with search results:
+
+   postings = response.results
+
+   quantity = response.num_results
+
+   execution_time = response.exec_time_ms
 
 == Contributing to threetaps-client
  

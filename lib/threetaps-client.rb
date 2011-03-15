@@ -12,6 +12,7 @@ require 'client/reference_client'
 require 'client/search_client'
 require 'client/status_client'
 
+require 'dto/hashed_initializer'
 require 'dto/geocoder/geocoder_request'
 require 'dto/geocoder/geocoder_response'
 require 'dto/posting/create_response'

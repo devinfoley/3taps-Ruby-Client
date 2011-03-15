@@ -29,6 +29,7 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.rspec_opts = ['--color']
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
 
@@ -38,6 +39,16 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
 end
 
 task :default => :spec
+
+# Run the unit tests
+desc "Run all unit tests"
+
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|

@@ -3,7 +3,7 @@ class Annotation < SuperModel::Base
 #  def initialize
 #    @attributes[:options] = []
 #  end
-  
+
   class AnnotaionType
     SELECT = 1
     STRING = 2

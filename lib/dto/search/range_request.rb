@@ -1,5 +1,14 @@
-#private SearchRequest searchRequest;
-#private List<String> fields = new ArrayList<String>();
+# Returns the minium and maximum values currently in 3taps for the given fields
+# that match the given Common Search Criteria. The purpose of the range method
+# is to provide developers with sensible values for range-based UI filters.
+#
+# range_request = RangeRequest.new
+# search_request = SearchRequest.new
+# search_request.category = 'VAUT'
+# search_request.annotations = {:Make => "porsche"}
+# range_request.search_request = search_request
+# range_request.fields = ['year', 'price']
+#
 class RangeRequest
   attr_accessor :search_request, :fields
 
@@ -16,17 +25,4 @@ class RangeRequest
     query_params += "fields=#{CGI.escape(fields.join(','))}"
     query_params
   end
-
-
-#	public void addField(String field) {
-#		this.fields.add(field);
-#	}
-#
-#	public Map<String, String> getQueryParams() {
-#
-#		final Map<String, String> queryParams = searchRequest.getQueryParams();
-#		queryParams.put("fields", Utils.join(fields));
-#
-#		return queryParams;
-#	}
 end

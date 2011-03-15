@@ -1,4 +1,3 @@
-#private Boolean success;
-class DeleteResponse
-  attr_accessor :success
+class DeleteResponse < Struct.new(:success)
+  include HashedInitializer
 end

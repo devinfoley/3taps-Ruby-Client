@@ -1,4 +1,4 @@
 #private Integer count;
-class CountResponse
-  attr_accessor :count
+class CountResponse < Struct.new(:count)
+  include HashedInitializer
 end

@@ -2,8 +2,6 @@
 class RangeResponse
 
   class Range
-    #private Integer min;
-		#private Integer max;
     attr_accessor :min, :max
   end
 
