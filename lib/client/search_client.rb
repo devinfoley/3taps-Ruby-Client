@@ -8,7 +8,7 @@ class SearchClient < Client
   #
   def search(search_request)
     response = execute_get("/search", search_request.query_params)
-    SearchResponse.from_json(ActiveSupport::JSON.decode(response))
+    SearchResponse.from_json(decode(response))
   end
 
   # Returns the minium and maximum values currently in 3taps for the given fields
@@ -19,7 +19,7 @@ class SearchClient < Client
   #
   def range(range_request)
     response = execute_get("/search", range_request.query_params)
-    RangeResponse.new(ActiveSupport::JSON.decode(response))
+    RangeResponse.new(decode(response))
   end
 
   # Returns the total number of postings found in 3taps, across the given dimension,
@@ -31,7 +31,7 @@ class SearchClient < Client
   #
   def summary(summary_request)
     response = execute_get("/search/summary", summary_request.query_params)
-    SummaryResponse.new(ActiveSupport::JSON.decode(response))
+    SummaryResponse.new(decode(response))
   end
 
   # Returns the total number of postings that match the given Common Search Criteria.
@@ -44,7 +44,7 @@ class SearchClient < Client
   # postings_quantity = response.count
   def count(search_request)
     response = execute_get("/search/count", search_request.query_params)
-    CountResponse.new(ActiveSupport::JSON.decode(response))
+    CountResponse.new(decode(response))
   end
 
   # Returns the 3taps category associated with the keywords, along with the number
@@ -57,7 +57,7 @@ class SearchClient < Client
   # postings_quantity = response.num_results
   def best_match(keywords)
     response = execute_get("/search/best-match", "keywords=#{keywords}")
-    BestMatchResponse.new(ActiveSupport::JSON.decode(response))
+    BestMatchResponse.new(decode(response))
   end
 
 end

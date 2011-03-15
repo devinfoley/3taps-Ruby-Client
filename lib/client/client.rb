@@ -24,5 +24,9 @@ class Client
       curl.headers['Api-Version'] = '2.2'
     end
     c.body_str
-  end	
+  end
+  private
+  def decode(data)
+    ActiveSupport::JSON.decode(data)
+  end
 end
