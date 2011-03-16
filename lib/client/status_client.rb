@@ -20,7 +20,7 @@ class StatusClient < Client
   # Send in status events for postings.
   def update_status(get_request)
     params = "data=#{get_request}"
-    response = execute_get("/status/update", params)
+    response = execute_get("status/update", params)
     Message.new(decode(response))
   end
 
@@ -39,7 +39,7 @@ class StatusClient < Client
 
   # Get the current system status.
   def system_status
-    response = execute_get("/status/system")
+    response = execute_get("status/system")
     Message.new(decode(response))
   end
 
