@@ -32,7 +32,7 @@ class StatusClient < Client
     data << "]"
     params = "ids=#{data}"
     response = execute_post("status/get", params)
-    GetResponse.new(decode(response))
+    GetResponse.from_json(decode(response))
   end
 
   # Get the current system status.
