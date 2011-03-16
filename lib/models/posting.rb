@@ -12,9 +12,9 @@ class Posting < SuperModel::Base
     @attributes[:history] ||= []
   end
 
-  def to_json(with_timestamp = true)
+  def to_json
     posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading}'"
-    posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'" if with_timestamp
+    posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     if self.body.present?
       posting << ',body:' + "'#{CGI.escape self.body}'"
@@ -29,7 +29,17 @@ class Posting < SuperModel::Base
 
   def to_json_for_update
     data = "['#{self.postKey}',"
-    data << self.to_json(false)
+    data << "{" + 'heading:' +  "'#{CGI.escape self.heading}'"
+    #data << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
+    if self.body.present?
+      data << ',body:' + "'#{CGI.escape self.body}'"
+    end
+    if self.annotations
+      annotations = []
+      self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
+      data << ',annotations:' + "[{#{annotations.join(',')}}]"
+    end
+    data << "}"
     data << "]"
   end
 
