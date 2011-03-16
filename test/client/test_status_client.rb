@@ -6,17 +6,21 @@ class TestStatusClient < Test::Unit::TestCase
   end
 
   should "test get status" do
-    posting_client = PostingClient.new
-    posting = Posting.new(
-      :source => "3TAPS",
-      :heading => "Svitla posting",
-      :timestamp => Time.now
-    )
-    response = posting_client.create_posting(posting)
-    first_key = response.first.postKey
-    existing_posting =  posting_client.get_posting(first_key)
+
+    search_request = SearchRequest.new
+    search_request.category = 'VAUT'
+    search_request.annotations = {:Make => "porsche"}
+    search_request.rpp = 2
+    search_request.retvals = ["category", "location", "heading", "externalURL", "timestamp", "postKey", "source", "image", "externalID"]
+
+    client = SearchClient.new
+    search_response = client.search(search_request)
+    existing_postings = search_response.results
+    p existing_postings
+
     client = StatusClient.new
-    response = client.get_status(existing_posting)
+    response = client.get_status(existing_postings)
+    p response
     assert_equal GetResponse, response.class
   end
 

@@ -25,14 +25,16 @@ class StatusClient < Client
   end
 
   # Get status history for postings.
-  def get_status(postings)
+ def get_status(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json_for_update}.join(',')
+    data << postings.collect{|posting| posting.to_json_for_status}.join(',')
     data << "]"
-    params = "data=#{data}"
-    response = execute_post("posting/update", params)
-    GetResponse.new(decode(response))
+    #p data
+    params = "ids = #{data}"
+    #p ActiveSupport::JSON.encode(params)
+    response = execute_post("status/get", ActiveSupport::JSON.encode(params))
+    GetResponse.from_json(decode(response))
   end
 
   # Get the current system status.
