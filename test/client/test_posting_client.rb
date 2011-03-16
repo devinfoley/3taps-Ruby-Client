@@ -53,6 +53,7 @@ class TestPostingClient < Test::Unit::TestCase
     client = PostingClient.new
     posting = client.get_posting("6HAKZQS")
     assert_equal Posting, posting.class
+    assert_equal "6HAKZQS", posting.postKey
   end
 
   should "test posting deletion" do
