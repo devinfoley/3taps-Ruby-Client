@@ -17,7 +17,7 @@ describe PostingClient do
 
   it "should return UpdateResponse object" do
     stub_post_and_json_decode
-    UpdateResponse.should_receive(:from_json).with([])
+    UpdateResponse.should_receive(:from_array).with([])
     post = mock "Posting" , :to_json_for_update=>""
     @posting_client.update_posting(post).class == UpdateResponse.class#).should be_true
   end

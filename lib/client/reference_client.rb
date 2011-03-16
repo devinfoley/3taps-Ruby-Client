@@ -6,7 +6,7 @@ class ReferenceClient < Client
   #Returns the 3taps categories
   def get_categories
     response = execute_get("/reference/category")
-    Category.from_json(decode(response))
+    Category.from_array(decode(response))
   end
 
   #You can request a single category by passing in the category code
@@ -18,12 +18,12 @@ class ReferenceClient < Client
   #Returns the 3taps locations
   def get_locations
     response = execute_get("/reference/location")
-    Location.from_json(decode(response))
+    Location.from_array(decode(response))
   end
 
   #Returns the 3taps sources
   def get_sources
     response = execute_get("/reference/source")
-    Source.from_json(decode(response))
+    Source.from_array(decode(response))
   end
 end

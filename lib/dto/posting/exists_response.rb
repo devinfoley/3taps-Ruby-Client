@@ -4,7 +4,7 @@
 class ExistsResponse
   attr_accessor :exists, :postKey, :error
 
-  def self.from_json(json)
+  def self.from_array(json)
    json
   end
 end

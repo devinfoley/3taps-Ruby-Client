@@ -1,7 +1,7 @@
 class SearchResponse
   attr_accessor :success, :num_results, :exec_time_ms, :results
 
-  def self.from_json(json)
+  def self.from_array(json)
     res = self.new
     res.success = json["success"]
     res.num_results = json["numResults"]
