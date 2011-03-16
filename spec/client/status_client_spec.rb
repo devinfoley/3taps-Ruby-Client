@@ -17,7 +17,7 @@ describe StatusClient do
   it "should send POST request and create GetResponse from result" do
     stub_post_and_json_decode
     postings = mock "posting"
-    postings.should_receive(:to_json_for_update)
+    postings.should_receive(:to_json_for_status)
     get_response = mock "get_response"
     GetResponse.should_receive(:new).and_return get_response
 
