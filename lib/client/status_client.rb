@@ -20,24 +20,24 @@ class StatusClient < Client
   # Send in status events for postings.
   def update_status(get_request)
     params = "data=#{get_request}"
-    response = execute_get("/status/update", params)
+    response = execute_get("status/update", params)
     Message.new(decode(response))
   end
 
   # Get status history for postings.
-  def get_status(postings)
+ def get_status(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json_for_update}.join(',')
+    data << postings.collect{|posting| posting.to_json_for_status}.join(',')
     data << "]"
-    params = "data=#{data}"
-    response = execute_post("posting/update", params)
-    GetResponse.new(decode(response))
+    params = "ids=#{data}"
+    response = execute_post("status/get", params)
+    GetResponse.from_array(decode(response))
   end
 
   # Get the current system status.
   def system_status
-    response = execute_get("/status/system")
+    response = execute_get("status/system")
     Message.new(decode(response))
   end
 

@@ -6,22 +6,46 @@ class TestStatusClient < Test::Unit::TestCase
   end
 
   should "test get status" do
-    posting_client = PostingClient.new
-    search_client = SearchClient.new
-    search_request = SearchRequest.new
-    search_request.source = "3TAPS"
-    search_request.retvals = ["postKey"]
-    response = search_client.search(search_request)
-    first_key = response.results.first.postKey
-    existing_posting =  posting_client.get_posting(first_key)
+   search_request = SearchRequest.new
+    search_request.category = 'VAUT'
+    search_request.annotations = {:Make => "porsche"}
+    search_request.rpp = 5
+    search_request.page = 4
+    search_request.retvals = ["category", "location", "heading", "externalURL", "timestamp", "postKey", "source", "image", "externalID"]
+
+    client = SearchClient.new
+    search_response = client.search(search_request)
+    existing_postings = search_response.results
+    #p existing_postings
+
     client = StatusClient.new
-    response = client.get_status(existing_posting)
-    assert_equal GetResponse, response.class
+    response = client.get_status(existing_postings)
+    #p response
+    assert_equal Array, response.class
   end
 
-  should "test system status" do
+  should "test get status and update it" do
+   search_request = SearchRequest.new
+    search_request.category = 'VAUT'
+    search_request.annotations = {:Make => "porsche"}
+    search_request.rpp = 5
+    search_request.page = 4
+    search_request.retvals = ["category", "location", "heading", "externalURL", "timestamp", "postKey", "source", "image", "externalID"]
+
+    client = SearchClient.new
+    search_response = client.search(search_request)
+    existing_postings = search_response.results
+    #p existing_postings
+
     client = StatusClient.new
-    status_response = client.system_status
-    assert_equal Message, status_response.class
+    response = client.get_status(existing_postings)
+    #p response
+    assert_equal Array, response.class
   end
+
+  #should "test system status" do
+    #client = StatusClient.new
+    #status_response = client.system_status
+    #assert_equal Message, status_response.class
+  #end
 end

@@ -1,4 +1,5 @@
 class GetResponse
+  
   attr_accessor :exists, :externalID, :source, :history
 #a.bratashov: delete after success unit testing
 #  def self.from_array(json)
@@ -10,4 +11,19 @@ class GetResponse
 #    result
 #  end
 
+  def self.from_array(array)
+      p array
+      
+      array.collect do |element|
+        result = self.new
+        result.exists = element["exists"]
+        result.externalID = element["externalID"] if element["externalID"] != nil
+        result.source = element["source"] if element["source"] != nil
+        result.history = PostingHistory.new(element["history"]) if element["history"] != nil
+        #GetResponse.new(result)
+      end
 end
+
+end
+
+
