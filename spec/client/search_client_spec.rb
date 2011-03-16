@@ -9,7 +9,7 @@ describe SearchClient do
     search_request = mock "search_request"
     search_request.should_receive(:query_params)
     search_response = mock "search_response"
-    SearchResponse.should_receive(:from_array).and_return search_response
+    SearchResponse.should_receive(:new).and_return search_response
 
     @search_client.search(search_request).should == search_response
   end

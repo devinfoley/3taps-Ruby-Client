@@ -2,7 +2,7 @@ require 'helper'
 
 class TestStatusClient < Test::Unit::TestCase
   should "test update status" do
-    
+
   end
 
   should "test get status" do
@@ -21,7 +21,7 @@ class TestStatusClient < Test::Unit::TestCase
     client = StatusClient.new
     response = client.get_status(existing_postings)
     #p response
-    assert_equal Array, response.class
+    assert_equal GetResponse, response.class
   end
 
   should "test get status and update it" do
@@ -40,7 +40,7 @@ class TestStatusClient < Test::Unit::TestCase
     client = StatusClient.new
     response = client.get_status(existing_postings)
     #p response
-    assert_equal Array, response.class
+    assert_equal GetResponse, response.class
   end
 
   #should "test system status" do

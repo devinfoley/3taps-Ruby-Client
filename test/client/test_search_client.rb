@@ -17,6 +17,7 @@ class TestSearchClient < Test::Unit::TestCase
   should "get the search request result" do
     search_request = SearchRequest.new
     search_request.category = 'VAUT'
+    search_request.rpp = 2
     search_request.annotations = {:Make => "porsche"}
     client = SearchClient.new
     search_response = client.search(search_request)

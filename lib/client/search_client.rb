@@ -8,7 +8,7 @@ class SearchClient < Client
   #
   def search(search_request)
     response = execute_get("/search", search_request.query_params)
-    SearchResponse.from_array(decode(response))
+    SearchResponse.new(decode(response))
   end
 
   # Returns the minium and maximum values currently in 3taps for the given fields

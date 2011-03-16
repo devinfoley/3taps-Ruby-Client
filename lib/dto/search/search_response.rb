@@ -1,16 +1,15 @@
-class SearchResponse
-  attr_accessor :success, :num_results, :exec_time_ms, :results
-
-  def self.from_array(json)
-    res = self.new
-    res.success = json["success"]
-    res.num_results = json["numResults"]
-    res.exec_time_ms = json["execTimeMs"]
-    res.results = []
-    json["results"].each do |posting|
-        res.results << Posting.new(posting)
-    end    
-    res
+class SearchResponse < Struct.new(:success, :numResults, :execTimeMs, :results) do
+    def num_results
+      numResults
+    end
+    def exec_time_ms
+      execTimeMs
+    end
   end
 
+  def initialize(hash = {})
+    hash.each do |key, value|
+      self.send("#{key}=".to_sym, key == 'results' ? value.collect {|item| Posting.new(item)} : value )
+    end
+  end
 end
