@@ -11,6 +11,7 @@ class TestSearchClient < Test::Unit::TestCase
     client = SearchClient.new
     range_response = client.range(range_request)
     assert_equal RangeResponse, range_response.class
+    assert_equal Array, range_response.ranges.class
     assert_equal range_request.fields[0], range_response.ranges[0]['field']
     assert_equal range_request.fields[1], range_response.ranges[1]['field']
   end
