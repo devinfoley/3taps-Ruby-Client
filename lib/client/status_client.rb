@@ -21,7 +21,7 @@ class StatusClient < Client
   def update_status(get_request)
     params = "data=#{posting}"
     response = execute_get("/status/update", params)
-    decode(response)
+    Message.from_json(decode(response))
   end
 
   # Get status history for postings.
@@ -38,7 +38,7 @@ class StatusClient < Client
   # Get the current system status.
   def system_status
     response = execute_get("/status/system")
-    Message.from_json(decode(response))  
+    Message.from_json(decode(response))
   end
 
 end

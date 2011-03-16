@@ -5,20 +5,31 @@ describe StatusClient do
     @status_client = StatusClient.new
   end
 
-  it "should desc" do
-    # TODO
+  it "should send POST request and create Message from result" do
+    stub_post_and_json_decode
+    posting = mock "posting"
+    message = mock "message"
+    Message.should_receive(:from_json).and_return message
+
+    @status_client.update_status(posting).should == message
   end
 
   it "should send POST request and create GetResponse from result" do
     stub_post_and_json_decode
-    GetResponse.should_receive(:from_json).with([])
-    post = mock "Posting" , :to_json_for_status=>""
-    @status_client.get_status(post).class == GetResponse.class#).should be_true
+    postings = mock "posting"
+    postings.should_receive(:to_json_for_update)
+    get_response = mock "get_response"
+    GetResponse.should_receive(:from_json).and_return get_response
+
+    @status_client.get_status(postings).should == get_response
   end
 
   it "should send GET request and create Message from result" do
     stub_get_and_json_decode
-    @status_client.system_status.is_a?(Message).should be_true
+    message = mock "message"
+    Message.should_receive(:from_json).and_return message
+
+    @status_client.system_status.should == message
   end
 
 end
