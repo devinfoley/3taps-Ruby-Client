@@ -1,8 +1,5 @@
 # The PostingClient allows developers to use 3taps Posting API to store and
 # retrieve postings in the 3taps system.
-
-# The PostingClient allows developers to use 3taps Posting API to store and
-# retrieve postings in the 3taps system.
 class PostingClient < Client
 
   # Returns information about a single posting.
@@ -19,13 +16,8 @@ class PostingClient < Client
     data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"
 
-    # GET
-#    params = "posts=#{data}"
-#    response = execute_get("/postings/create", params)
-    # POST
     params = "posts=#{data}"
     response = execute_post("posting/create", params)
-    p response
     CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
@@ -38,9 +30,7 @@ class PostingClient < Client
     data << "]"
 
     params = "data=#{data}"
-    p params
     response = execute_post("posting/update", params)
-    p response
     UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
   end
 
@@ -49,7 +39,6 @@ class PostingClient < Client
     post_keys = [post_keys] unless post_keys.is_a? Array
     params = "data=['#{post_keys.join("','")}']"
     response = execute_post("posting/delete", params)
-    p response
     DeleteResponse.new(ActiveSupport::JSON.decode(response))
   end
 
