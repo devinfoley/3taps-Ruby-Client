@@ -18,6 +18,4 @@ class TestPosting < Test::Unit::TestCase
     assert_equal ["old_posting"], posting.history
     assert_equal({'annotation' => "value"}, posting.annotations)
   end
-
-  should ""
 end
