@@ -30,11 +30,9 @@ class StatusClient < Client
     data = "["
     data << postings.collect{|posting| posting.to_json_for_status}.join(',')
     data << "]"
-    p data
     params = "ids=#{data}"
-    p ActiveSupport::JSON.encode(params)
     response = execute_post("status/get", params)
-    GetResponse.from_json(decode(response))
+    GetResponse.from_array(decode(response))
   end
 
   # Get the current system status.
