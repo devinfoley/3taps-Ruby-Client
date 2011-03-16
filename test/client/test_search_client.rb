@@ -7,12 +7,11 @@ class TestSearchClient < Test::Unit::TestCase
     search_request.category = 'VAUT'
     search_request.annotations = {:Make => "porsche"}
     range_request.search_request = search_request
-    range_request.fields = ['year', 'price']
+    range_request.fields = ['price', 'year']
     client = SearchClient.new
     range_response = client.range(range_request)
     assert_equal RangeResponse, range_response.class
-    assert_equal range_request.fields[0], range_response.ranges[0]['field']
-    assert_equal range_request.fields[1], range_response.ranges[1]['field']
+    assert_equal range_request.fields, range_response.ranges.collect{|r| r['field']}
   end
 
   should "get the search request result" do

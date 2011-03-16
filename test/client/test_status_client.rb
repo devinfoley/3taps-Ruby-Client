@@ -7,13 +7,12 @@ class TestStatusClient < Test::Unit::TestCase
 
   should "test get status" do
     posting_client = PostingClient.new
-    posting = Posting.new(
-      :source => "3TAPS",
-      :heading => "Svitla posting",
-      :timestamp => Time.now
-    )
-    response = posting_client.create_posting(posting)
-    first_key = response.first.postKey
+    search_client = SearchClient.new
+    search_request = SearchRequest.new
+    search_request.source = "3TAPS"
+    search_request.retvals = ["postKey"]
+    response = search_client.search(search_request)
+    first_key = response.results.first.postKey
     existing_posting =  posting_client.get_posting(first_key)
     client = StatusClient.new
     response = client.get_status(existing_posting)

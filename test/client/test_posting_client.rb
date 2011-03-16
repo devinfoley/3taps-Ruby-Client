@@ -51,9 +51,9 @@ class TestPostingClient < Test::Unit::TestCase
 
   should "test posting retrieval" do
     client = PostingClient.new
-    posting = client.get_posting("6HAKZQS")
+    posting = client.get_posting("BF87BFW")
     assert_equal Posting, posting.class
-    assert_equal "6HAKZQS", posting.postKey
+    assert_equal "BF87BFW", posting.postKey
   end
 
   should "test posting deletion" do

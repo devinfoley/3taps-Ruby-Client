@@ -6,7 +6,7 @@ class GetResponse
     result.exists = json["exists"]
     result.externalID = json["externalID"]
     result.source = json["source"]
-    result.history = PostingHistory.new(json["history"])   
+    result.history = PostingHistory.new(json["history"]) if json["history"]
     result
   end
 
