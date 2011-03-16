@@ -19,7 +19,7 @@ class StatusClient < Client
 
   # Send in status events for postings.
   def update_status(get_request)
-    params = "data=#{posting}"
+    params = "data=#{get_request}"
     response = execute_get("/status/update", params)
     Message.from_json(decode(response))
   end
