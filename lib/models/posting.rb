@@ -45,10 +45,10 @@ class Posting < SuperModel::Base
 
   def to_json_for_status
     # {source: 'CRAIG', externalID: 3434399120}
-    data = "{source: '"
-    data <<  self.source
-    data << "', externalID: "
-    data << self.externalID
+    data = "{source:'"
+    data <<  "#{CGI.escape self.source}"
+    data << "', externalID:"
+    data <<  "#{CGI.escape self.externalID}"
     data << "}"
     data
   end
