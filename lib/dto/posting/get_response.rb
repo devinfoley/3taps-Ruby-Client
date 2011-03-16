@@ -1,7 +1,7 @@
 class GetResponse
   attr_accessor :exists, :externalID, :source, :history
 #a.bratashov: delete after success UnitTesting
-#  def self.from_json(json)
+#  def self.from_array(json)
 #    result = self.new
 #    result.exists = json["exists"]
 #    result.externalID = json["externalID"]
