@@ -8,7 +8,7 @@ class TestStatusClient < Test::Unit::TestCase
     client = StatusClient.new
     response = client.get_status(existing_postings)
     p response
-    assert_equal GetStatusResponse, response.class
+    assert_equal Array, response.class
   end
 
   should "test update status" do
