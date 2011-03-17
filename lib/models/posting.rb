@@ -43,7 +43,7 @@ class Posting < SuperModel::Base
     data << "]"
   end
 
-  def to_json_for_status
+  def to_json_for_status_get
     # {source: 'CRAIG', externalID: 3434399120}
     data = "{source:'"
     data <<  "#{CGI.escape self.source}"
@@ -51,5 +51,30 @@ class Posting < SuperModel::Base
     data <<  "#{CGI.escape self.externalID}"
     data << "}"
     data
+  end
+
+  def to_json_for_status_update
+#		{
+#			"source":"E_BAY",
+#			"externalID":"3434399120",
+#			"status":"sent",
+#			"timestamp":"2011/12/21 01:13:28",
+#			"attributes":{
+#				"postKey":"3JE8VFD"
+#			}
+#		}
+
+    data = "{source:'#{CGI.escape self.source}', "
+    data << "externalID:#{CGI.escape self.externalID}, "
+    data <<  "status:'indexed', "
+    data <<  "timestump:'#{((Time.now - 12.hours).utc.to_s(:db)).gsub(/\s/,"+")}', "
+    data <<  "attributes:{#{get_sent_attributes}}, "
+    data <<  "errors:[{code:666, message:'#{CGI.escape 'Some error mesage could be here!'}'}, {code:777, message:'#{CGI.escape 'JackPot!!!'}'}]"
+    data << "}"
+    data
+  end
+
+  def get_sent_attributes
+    "postKey:'#{self.postKey}', message:'#{CGI.escape 'Test message attribute'}', custom:'#{CGI.escape 'Test custom attribute'}'"
   end
 end
