@@ -22,7 +22,7 @@ require 'dto/posting/delete_response'
 require 'dto/posting/update_response'
 
 require 'dto/status/get_status_response'
-require 'dto/status/update_status_request'
+require 'dto/status/status_update_request'
 
 require 'dto/search/best_match_response'
 require 'dto/search/count_response'

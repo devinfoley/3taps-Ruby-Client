@@ -1,3 +1,3 @@
-class Message < SuperModel::Base
-  attributes :code, :message
+class Message < Struct.new(:code, :message)
+  include HashedInitializer
 end
