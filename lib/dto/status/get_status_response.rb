@@ -1,31 +1,16 @@
-class GetStatusResponse
-  
-  attr_accessor :exists, :externalID, :source, :history
-#a.bratashov: delete after success unit testing
-#  def self.from_array(json)
-#    result = self.new
-#    result.exists = json["exists"]
-#    result.externalID = json["externalID"]
-#    result.source = json["source"]
-#    result.history = PostingHistory.new(json["history"]) if json["history"]
-#    result
-#  end
-  def self.from_array(array)
-    mas = []
-    array.collect do |element|
-      result = self.new
-      result.exists = element["exists"]
-      result.externalID = element["externalID"] 
-      result.source = element["source"] 
-      if element["history"] != nil
-        result.history = PostingHistory.new(element["history"])
-      else
-        result.history = nil
+class GetStatusResponse < Struct.new(:exists, :externalID, :source, :history)
+  class Status < Struct.new(:field, :attrs)
+  end
+  class Attr < Struct.new(:timestamp, :errors, :attributes)
+  end
+  def self.from_array(json)
+     json.each do |hash|
+      hash.each do |key, value|
+        self.new("#{key}=".to_sym, key == 'history' ?  value.collect {
+          |key, items| Status.new(:field => key, :attrs => items.collect {|item| 
+           Attr.new(:timestamp => item["timestamp"], :errors => item["errors"], :attributes => item["attributes"]) }
+          )} : value )
       end
-      mas << result
     end
-    mas
   end
 end
-
-
