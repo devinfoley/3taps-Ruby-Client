@@ -10,16 +10,15 @@ class TestStatusClient < Test::Unit::TestCase
     p response
   end
 
-=begin
+
   should "test update status" do
     posting_client = PostingClient.new
     status_client = StatusClient.new
+    update_request = UpdateStatusRequest.new
     posting_response = posting_client.get_posting("BD9FHQC")
-    update_response = status_client.update_status(posting_response)
+    update_response = status_client.update_status(posting_response, update_request)
     assert_equal Message , update_response.class
   end
-
-
 
   should "test get status" do
     search_request = SearchRequest.new
@@ -42,5 +41,5 @@ class TestStatusClient < Test::Unit::TestCase
     status_response = client.system_status
     assert_equal Message, status_response.class
   end
-=end
+
 end

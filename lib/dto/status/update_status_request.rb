@@ -9,11 +9,10 @@ class UpdateStatusRequest
 #			}
 #		}
 
-    data <<  "status:'found', "
+    data =  "status:'found', "
     data <<  "timestump:'#{((Time.now - 12.hours).utc.to_s(:db)).gsub(/\s/,"+")}', "
     data <<  "attributes:{#{get_sent_attributes}}, "
-    data <<  "errors:[{code:666, message:'#{CGI.escape 'Some error mesage could be here!'}'}, {code:777, message:'#{CGI.escape 'JackPot!!!'}'}]"
-    data << "}, "
+    data <<  "errors:[{code:666, message:'#{CGI.escape 'Some error mesage could be here!'}'}, {code:777, message:'#{CGI.escape 'JackPot!!!'}'}], "
     data
   end
 

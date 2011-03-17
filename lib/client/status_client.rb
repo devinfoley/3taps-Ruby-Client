@@ -21,10 +21,10 @@ class StatusClient < Client
 
   def update_status(posting, status)
     #postings = [postings] unless postings.is_a? Array
-    params ='events=['
+    params ='events=[{'
     params << status.to_params
     params << posting.to_json_for_status_client
-    params << "]"
+    params << "}]"
     p params
     response = execute_post("status/update", params)
     p response
@@ -35,7 +35,7 @@ class StatusClient < Client
  def get_status(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| "{#{posting.to_json_for_status_get}}"}.join(',')
+    data << postings.collect{|posting| "{#{posting.to_json_for_status_client}}"}.join(',')
     data << "]"
     params = "ids=#{data}"
     response = execute_post("status/get", params)
