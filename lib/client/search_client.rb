@@ -31,7 +31,7 @@ class SearchClient < Client
   #
   def summary(summary_request)
     response = execute_get("/search/summary", summary_request.query_params)
-    SummaryResponse.new(decode(response))
+    SummaryResponse.from_hash(decode(response))
   end
 
   # Returns the total number of postings that match the given Common Search Criteria.

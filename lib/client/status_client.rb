@@ -19,10 +19,10 @@ class StatusClient < Client
 
   # Send in status events for postings.
 
-  def update_status(posting)
+  def update_status(postings)
     postings = [postings] unless postings.is_a? Array
     params ='events=['
-    params << postings.collect{|posting| "{#{posting.status.to_params}, #{posting.to_json_for_status_client}}"}.join(',') unless posting.status.event.empty?
+    params << postings.collect{|posting| "{#{posting.status.to_params}, #{posting.to_json_for_status_client}}" unless posting.status.event.empty?}.join(',')
     params << "]"
     response = execute_post("status/update", params)
     Message.new(decode(response))

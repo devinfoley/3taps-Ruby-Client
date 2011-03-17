@@ -7,9 +7,12 @@ describe StatusClient do
 
   it "should send POST request and create Message from result" do
     stub_post_and_json_decode
-    posting = mock "get_request"
+    posting = mock "posting"
     message = mock "message"
+    status_update_request = mock "status_update_request"
     Message.should_receive(:new).and_return message
+    posting.should_receive(:status).and_return status_update_request
+    status_update_request.should_receive(:event).and_return ""
 
     @status_client.update_status(posting).should == message
   end
@@ -17,9 +20,9 @@ describe StatusClient do
   it "should send POST request and create GetResponse from result" do
     stub_post_and_json_decode
     postings = mock "posting"
-    postings.should_receive(:to_json_for_status)
-    get_response = mock "get_response"
-    GetResponse.should_receive(:new).and_return get_response
+    postings.should_receive(:to_json_for_status_client)
+    get_response = mock "get_status_response"
+    GetStatusResponse.should_receive(:new).and_return get_response
 
     @status_client.get_status(postings).should == get_response
   end

@@ -2,14 +2,13 @@ require 'helper'
 
 class TestStatusClient < Test::Unit::TestCase
 
-  should "get status for posting with BD9FHQC code" do
+  should "get status for posting with BD9FHQC postKey" do
     posting_client = PostingClient.new
     existing_postings = posting_client.get_posting("BD9FHQC")
     client = StatusClient.new
     response = client.get_status(existing_postings)
-
+    assert_equal GetStatusResponse, response.class
   end
-
 
   should "test update status" do
     posting_client = PostingClient.new
@@ -21,8 +20,9 @@ class TestStatusClient < Test::Unit::TestCase
     posting.status.attributes = {:postKey => "TESTKEY", :message => "UFO test message"}
     posting.status.event = 'lost'
     assert_equal "status:'lost', attributes:{postKey:'TESTKEY', message:'UFO+test+message'}, errors:[{code:666, message:'UFO+posting+error'}]", posting.status.to_params
-    update_response = status_client.update_status(posting, update_request)
+    update_response = status_client.update_status(posting)
     assert_equal Message , update_response.class
+    assert_equal 200 , update_response.code
   end
 
   should "test get status" do
