@@ -6,9 +6,12 @@
 # for a posting is known as geocoding.
 class GeocoderClient < Client
 
-  def geocode(string)
-    params = {:data => string}
-    response = execute_post('geocoder/geocode', ActiveSupport::JSON.encode(params))
+  def geocode(geocoder_requests)
+    geocoder_requests = [geocoder_requests] unless geocoder_requests.is_a? Array
+    params = "data=["
+    params << geocoder_requests.collect{|request| "#{request.to_params}"}.join(',')
+    params << "]"
+    response = execute_post('geocoder/geocode', params)
     GeocoderResponse.from_array(decode(response))
   end
 
