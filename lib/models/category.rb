@@ -1,9 +1,6 @@
-class Category < SuperModel::Base
-  attributes :group, :category, :code, :annotations
-  def annotations=(annotations)
-    @attributes[:annotations] = annotations || []
-  end
-
+class Category < Struct.new(:group, :category, :code, :annotations)
+  include HashedInitializer
+  
   def self.from_array(array)
     array.collect do |element|
       Category.new(element)
