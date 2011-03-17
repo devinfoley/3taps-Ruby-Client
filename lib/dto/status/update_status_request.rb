@@ -1,22 +1,21 @@
-class UpdateStatusRequest
-  
-  def to_params
-#		{
-#			"status":"sent",
-#			"timestamp":"2011/12/21 01:13:28",
-#			"attributes":{
-#				"postKey":"3JE8VFD"
-#			}
-#		}
+class UpdateStatusRequest < Struct.new(:event, :timestump, :attributes, :errors)  
 
-    data =  "status:'found', "
-    data <<  "timestump:'#{((Time.now - 12.hours).utc.to_s(:db)).gsub(/\s/,"+")}', "
-    data <<  "attributes:{#{get_sent_attributes}}, "
-    data <<  "errors:[{code:666, message:'#{CGI.escape 'Some error mesage could be here!'}'}, {code:777, message:'#{CGI.escape 'JackPot!!!'}'}], "
+  include HashedInitializer
+
+  def to_params
+    data =  "status:'#{event}'"
+    data <<  ", timestump:'#{((timestump).utc.to_s(:db)).gsub(/\s/,"+")}'" if timestump
+    data <<  ", attributes:{#{attributes_for_params}}" unless attributes.empty?
+    data <<  ", errors:[#{errors_for_params}]" unless errors.empty?
     data
   end
 
-  def get_sent_attributes
-    "postKey:'BBBBB', message:'#{CGI.escape 'Test message attribute'}', custom:'#{CGI.escape 'Test custom attribute'}'"
+  def attributes_for_params
+    attributes.collect{ |key, value| "#{key}:'#{CGI.escape value}'"  }.join(", ")
   end
+
+  def errors_for_params
+    errors.collect{ |error| "{code:#{error.code}, message:'#{CGI.escape error.message}'}" }.join(", ")
+  end
+
 end

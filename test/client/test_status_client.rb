@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestStatusClient < Test::Unit::TestCase
-
+=begin
   should "get status for posting with BD9FHQC code" do
     posting_client = PostingClient.new
     existing_postings = posting_client.get_posting("BD9FHQC")
@@ -41,5 +41,5 @@ class TestStatusClient < Test::Unit::TestCase
     status_response = client.system_status
     assert_equal Message, status_response.class
   end
-
+=end
 end
