@@ -42,7 +42,6 @@ class StatusClient < Client
   # Get the current system status.
   def system_status
     response = execute_get("/status/system")
-    p response
     Message.new(decode(response))
   end
 

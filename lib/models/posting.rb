@@ -3,13 +3,13 @@ class Posting < SuperModel::Base
              :longitude, :latitude, :language, :price, :currency, :images,
              :externalURL, :externalID, :accountName, :accountID, :clickCount,
              :timestamp, :expiration, :indexed, :trustedAnnotations,
-             :annotations, :errors, :status
+             :annotations, :errors, :status, :history
 
   def initialize(*params)
     super(*params)
     @attributes[:images] ||= []
     @attributes[:annotations] ||= {}
-    @attributes[:status] ||= UpdateStatusRequest.new(:event => '', :timestump => nil, :attributes => {}, :errors => [])
+    @attributes[:status] ||= StatusUpdateRequest.new(:event => '', :timestump => nil, :attributes => {}, :errors => [])
   end
 
   def to_json

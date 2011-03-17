@@ -1,4 +1,4 @@
-class UpdateStatusRequest < Struct.new(:event, :timestump, :attributes, :errors)  
+class StatusUpdateRequest < Struct.new(:event, :timestump, :attributes, :errors)  
 
   include HashedInitializer
 

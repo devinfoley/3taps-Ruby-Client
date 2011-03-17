@@ -4,7 +4,7 @@ class TestPosting < Test::Unit::TestCase
   should "create posting with empty images array" do
     posting = Posting.new
     assert_equal [], posting.images
-    assert_equal [], posting.history
+    assert_equal StatusUpdateRequest, posting.status.class
     assert_equal({}, posting.annotations)
   end
   
