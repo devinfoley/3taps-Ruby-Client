@@ -14,7 +14,7 @@ class TestPostingClient < Test::Unit::TestCase
     assert_nil response.first.error
 
     posting_key = response.first.post_key
-
+    posting.heading = "change"
     response = client.update_posting(posting)
 
     response = client.delete_posting(posting_key)

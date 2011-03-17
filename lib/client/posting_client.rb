@@ -21,7 +21,7 @@ class PostingClient < Client
 
     # GET
     params = "posts=#{data}"
-    response = execute_get("/posting/create", params)
+    response = execute_post("/posting/create", params)
     # POST
 #    params = {:posts => data} #"posts=#{data}"
 #    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
