@@ -6,6 +6,7 @@ class ReferenceClient < Client
   #Returns the 3taps categories
   def get_categories
     response = execute_get("/reference/category")
+    File.new("newfile",  "w+") << response
     Category.from_array(decode(response))
   end
 

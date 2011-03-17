@@ -1,3 +1,3 @@
-class PostingHistory < Struct.new(:timestamp, :errors, :attrs)
-  include HashedInitializer
+class PostingHistory < Struct.new(:history)
+ #include HashedInitializer
 end
