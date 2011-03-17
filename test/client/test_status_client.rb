@@ -7,7 +7,6 @@ class TestStatusClient < Test::Unit::TestCase
     existing_postings = posting_client.get_posting("BD9FHQC")
     client = StatusClient.new
     response = client.get_status(existing_postings)
-    p response
     assert_equal Array, response.class
   end
 

@@ -21,10 +21,10 @@ describe StatusClient do
     stub_post_and_json_decode
     postings = mock "posting"
     postings.should_receive(:to_json_for_status_client)
-    get_response = mock "get_status_response"
-    GetStatusResponse.should_receive(:new).and_return get_response
+    array = mock "array"
+    GetStatusResponse.should_receive(:from_array).and_return array
 
-    @status_client.get_status(postings).should == get_response
+    @status_client.get_status(postings).should == array
   end
 
   it "should send GET request and create Message from result" do

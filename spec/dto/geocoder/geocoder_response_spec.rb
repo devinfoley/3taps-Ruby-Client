@@ -6,7 +6,7 @@ describe GeocoderResponse do
   it "should initialize multiple objects form array" do
     array = [1,2,3]
     array.size.times do
-      GeocoderResponse.should_receive(:new)
+      GeocoderResponse.should_receive(:from_hash)
     end
     GeocoderResponse.from_array(array)
   end

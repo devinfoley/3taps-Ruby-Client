@@ -1,11 +1,7 @@
 class GeocoderResponse < Struct.new(:code, :latitude, :longitude)
   def self.from_array(array)
      array.collect do |geocode|
-      res = self.new
-      res.code = geocode[0]
-      res.latitude = geocode[1]
-      res.longitude = geocode[2]
-      res
+      from_hash(:code => geocode[0], :latitude => geocode[1], :longitude => geocode[2])
     end
   end
 end

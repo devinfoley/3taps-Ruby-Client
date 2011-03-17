@@ -18,11 +18,12 @@ class Client
   end
 
   def execute_post( path, params = nil )
-    c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params) 
+    c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params)
     c.body_str
-
   end
+
   private
+
   def decode(data)
     ActiveSupport::JSON.decode(data)
   end

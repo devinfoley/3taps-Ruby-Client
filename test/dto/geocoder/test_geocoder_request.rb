@@ -11,6 +11,7 @@ class TestGeoCoderRequest < Test::Unit::TestCase
     geocoder_request.locality = 'unknown'
     geocoder_request.postal = '90001'
     geocoder_request.text = 'custom message here'
-    assert_equal "{latitude:12, longitude:12, country:'US', state:'CA', city:'Palo+Alto', locality:'unknown', postal:'90001', text:'custom+message+here'}", geocoder_request.to_params
+    assert_equal( "{\"latitude\":12, \"longitude\":12, \"country\":\"US\", \"state\":\"CA\", \"city\":\"Palo+Alto\", \"locality\":\"unknown\", \"postal\":\"90001\", \"tex\":\"custom+message+here\"}",
+      geocoder_request.to_params)
   end
 end

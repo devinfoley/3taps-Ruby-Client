@@ -38,5 +38,6 @@ class TestGeocoderClient < Test::Unit::TestCase
     assert_equal Array, response.class
     assert_equal GeocoderResponse, response.first.class
     assert_equal "CAZ", response.first.code
+    assert_equal "LAX", response[1].code
   end
 end

@@ -1,7 +1,7 @@
 class Struct
-  def from_hash(h)
+  def self.from_hash(h)
     o = new
-    members.each {|m| o[m.to_sym] = h[m]}
+    h.each_pair{ |m, v| o[m.to_sym] = v }
     o
   end
 end
