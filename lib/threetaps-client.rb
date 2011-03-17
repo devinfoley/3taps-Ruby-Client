@@ -20,8 +20,9 @@ require 'dto/geocoder/geocoder_response'
 require 'dto/posting/create_response'
 require 'dto/posting/delete_response'
 require 'dto/posting/update_response'
-require 'dto/posting/get_request'
-require 'dto/posting/get_response'
+
+require 'dto/status/get_status_response'
+require 'dto/status/update_status_request'
 
 require 'dto/search/best_match_response'
 require 'dto/search/count_response'
