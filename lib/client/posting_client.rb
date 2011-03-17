@@ -17,14 +17,14 @@ class PostingClient < Client
     data << "]"
 
     params = "posts=#{data}"
-<<<<<<< HEAD
+
     response = execute_post("/posting/create", params)
     # POST
 #    params = {:posts => data} #"posts=#{data}"
 #    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
-=======
-    response = execute_post("posting/create", params)
->>>>>>> e881534e4c9f4dbd067a55de508f917df9281833
+
+   # response = execute_post("posting/create", params)
+
     CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
