@@ -8,7 +8,7 @@ class SearchClient < Client
   #
   def search(search_request)
     response = execute_get("/search", search_request.query_params)
-    SearchResponse.from_json(decode(response))
+    SearchResponse.new(decode(response))
   end
 
   # Returns the minium and maximum values currently in 3taps for the given fields
@@ -19,7 +19,7 @@ class SearchClient < Client
   #
   def range(range_request)
     response = execute_get("/search/range", range_request.query_params)
-    RangeResponse.from_json(decode(response))
+    RangeResponse.from_array(decode(response))
   end
 
   # Returns the total number of postings found in 3taps, across the given dimension,

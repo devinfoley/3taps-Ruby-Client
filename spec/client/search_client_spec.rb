@@ -9,7 +9,7 @@ describe SearchClient do
     search_request = mock "search_request"
     search_request.should_receive(:query_params)
     search_response = mock "search_response"
-    SearchResponse.should_receive(:from_json).and_return search_response
+    SearchResponse.should_receive(:new).and_return search_response
 
     @search_client.search(search_request).should == search_response
   end
@@ -19,7 +19,7 @@ describe SearchClient do
     range_request = mock "range_request"
     range_request.should_receive(:query_params)
     range_response = mock "range_response"
-    RangeResponse.should_receive(:from_json).and_return range_response
+    RangeResponse.should_receive(:from_array).and_return range_response
 
     @search_client.range(range_request).should == range_response
   end

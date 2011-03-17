@@ -1,8 +1,5 @@
 # The PostingClient allows developers to use 3taps Posting API to store and
 # retrieve postings in the 3taps system.
-
-# The PostingClient allows developers to use 3taps Posting API to store and
-# retrieve postings in the 3taps system.
 class PostingClient < Client
 
   # Returns information about a single posting.
@@ -19,12 +16,15 @@ class PostingClient < Client
     data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"
 
-    # GET
     params = "posts=#{data}"
+<<<<<<< HEAD
     response = execute_post("/posting/create", params)
     # POST
 #    params = {:posts => data} #"posts=#{data}"
 #    response = execute_post("posting/create", ActiveSupport::JSON.encode(params))
+=======
+    response = execute_post("posting/create", params)
+>>>>>>> e881534e4c9f4dbd067a55de508f917df9281833
     CreateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
@@ -36,16 +36,16 @@ class PostingClient < Client
     data << postings.collect{|posting| posting.to_json_for_update}.join(',')
     data << "]"
 
-    params = "data=#{CGI.escape(data)}"
-    response = execute_post("/posting/update", params)
-    UpdateResponse.from_json(ActiveSupport::JSON.decode(response))
+    params = "data=#{data}"
+    response = execute_post("posting/update", params)
+    UpdateResponse.from_array(ActiveSupport::JSON.decode(response))
   end
 
   # Deletes postings from 3taps.
   def delete_posting(post_keys)
     post_keys = [post_keys] unless post_keys.is_a? Array
-    params = "data=#{CGI.escape(ActiveSupport::JSON.encode(post_keys))}"
-    response = execute_post("/posting/delete", params)
+    params = "data=['#{post_keys.join("','")}']"
+    response = execute_post("posting/delete", params)
     DeleteResponse.new(ActiveSupport::JSON.decode(response))
   end
 

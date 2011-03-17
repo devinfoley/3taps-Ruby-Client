@@ -18,29 +18,35 @@
 class StatusClient < Client
 
   # Send in status events for postings.
-  def update_status(posting)
-    params = "data=#{posting}"
-    response = execute_get("/status/update", params)
-    decode(response)
+
+  def update_status(posting, status)
+    #postings = [postings] unless postings.is_a? Array
+    params ='events=[{'
+    params << status.to_params
+    params << posting.to_json_for_status_client
+    params << "}]"
+    p params
+    response = execute_post("status/update", params)
+    p response
+    Message.new(decode(response))
   end
 
   # Get status history for postings.
-  def get_status(postings)
+ def get_status(postings)
     postings = [postings] unless postings.is_a? Array
-    data = "ids:["
-    data << postings.collect{|posting| posting.to_json_for_status}.join(',')
+    data = "["
+    data << postings.collect{|posting| "{#{posting.to_json_for_status_client}}"}.join(',')
     data << "]"
-    p data
-    params = {:postings => data}
-    response = execute_post("status/get", ActiveSupport::JSON.encode(params))
-    p response
-    GetResponse.from_json(decode(response))
+    params = "ids=#{data}"
+    response = execute_post("status/get", params)
+    GetStatusResponse.from_array(decode(response))
   end
 
   # Get the current system status.
   def system_status
     response = execute_get("/status/system")
-    Message.from_json(decode(response))  
+    p response
+    Message.new(decode(response))
   end
 
 end
