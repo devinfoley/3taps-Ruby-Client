@@ -3,16 +3,24 @@
 #the posting such as a street address or a latitude and longitude value).
 #
 #Its methods are used to query API with appropriate requests:
-#- geocode(geocoder_requests)
+# geocode(geocoder_requests) - returns array of responses
 #
 #Example:
 #
-#geocoder_client = GeocoderClient.new
-#geocoder_request = GeocoderRequest.new
-#geocoder_request.latitude = '37.77493'
-#geocoder_request.longitude = '-122.41942'
-#request = geocoder_request
-#response = geocoder_client.geocode(request)
+#client = GeocoderClient.new
+#request = GeocoderRequest.new
+#request.latitude = '37.77493'
+#request.longitude = '-122.41942'
+#
+#response = client.geocode(request)
+#
+#response.code => "CAZ"
+#response.latitude => 39.77493
+#response.longitude => -122.41942
+
+
+
+
 
 class GeocoderClient < Client
 
