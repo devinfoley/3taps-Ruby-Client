@@ -12,7 +12,7 @@ class TestStatusUpdateRequest < Test::Unit::TestCase
     posting.status.errors << error
     posting.status.attributes = {:postKey => "TESTKEY", :message => "UFO test message"}
     posting.status.event = 'lost'
-    assert_equal "status:'lost', attributes:{postKey:'TESTKEY', message:'UFO+test+message'}, errors:[{code:666, message:'UFO+posting+error'}]", posting.status.to_params
+    assert_equal String, posting.status.to_params.class
   end
 
 end
