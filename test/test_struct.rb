@@ -1,17 +1,17 @@
 require 'helper'
 
 class TestStruct < Test::Unit::TestCase
-  should "create struct from hash" do
-    class MyClass < Struct.new(:name, :id)
+  class MyClass < Struct.new(:name, :id); end
 
-    end
-
+  should "create struct from hash with symbol keys" do
     o = MyClass.from_hash(:name => "name", :id => 1)
     assert_equal "name", o.name
     assert_equal 1, o.id
+  end
 
-    o2 = MyClass.from_hash("name" => "name", "id" => 1)
-    assert_equal "name", o2.name
-    assert_equal 1, o2.id
+  should "create struct from hash with string keys" do
+    o = MyClass.from_hash("name" => "name", "id" => 1)
+    assert_equal "name", o.name
+    assert_equal 1, o.id
   end
 end
