@@ -1,6 +1,9 @@
-#The Reference API provides a mechanism for accessing the standard
-#"reference information" used by the 3taps system, including locations,
-#categories, and sources.
+#Class ReferenceClient represents server request of "reference information" API
+#ReferenceClient provides a mechanism for accessing the standard "reference
+#information" used by the 3taps system, including locations, categories, and sources.
+#
+#
+
 class ReferenceClient < Client
   
   #Returns the 3taps categories
