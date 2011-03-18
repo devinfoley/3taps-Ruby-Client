@@ -1,4 +1,3 @@
-# == Class StatusClient
 # The StatusClient class provides access to the Status API.
 #
 # The Status API provides access to the status of postings, both inside and
@@ -48,7 +47,7 @@ class StatusClient < Client
   #
   #  client = SearchClient.new
   #  postings = Posting.new
-  #  response = client.get_status(postings)    # => Array of GetStatusResponse
+  #  response = client.get_status(postings)    # => Array of GetStatusResponse 
   #
   def get_status(postings)
     postings = [postings] unless postings.is_a? Array
