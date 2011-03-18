@@ -1,15 +1,13 @@
-# Class Category represents structure:
+# Class Category represents structure of category:
 #
 #  category = Category.new
-#  category.code # => String - a unique 4-character code identifying this category within 3taps.
-#  category.group # => String - the name of the group of this category.
-#  category.category # => String - the name of the category.
-#  category.hidden # => Boolean - if true, this category should be hidden from the user-interface.
-#  category.annotations # => [Annotation, Annotation] - an array of Annotation objects
-#
-# Its method are used to query API with appropriate requests:
-# 
-# category.from_array(array) - returns array of Category objects
+#  category.code        # => String
+#  category.group       # => String
+#  category.category    # => String
+#  category.hidden      # => Boolean
+#  category.annotations # => Array of Annotation objects
+
+#  category.from_array(array) # =>  Array of Category objects
 #
 class Category < Struct.new(:group, :category, :code, :annotations, :hidden)
   include HashedInitializer
@@ -19,9 +17,7 @@ class Category < Struct.new(:group, :category, :code, :annotations, :hidden)
   #
   # Example:
   #
-  #  client = Client.new
-  #  response = client.execute_get("/reference/category")
-  #  Category.from_array(client.decode(response)) # => Array of Category
+  #  Category.from_array([...array of JSON objects...]) # => Array of Category
   #
   def self.from_array(array)
     array.collect do |element|
