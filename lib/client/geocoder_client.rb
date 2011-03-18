@@ -1,9 +1,19 @@
-# The GeocoderClient refers to Geocoder API which is a web service within the
-# 3taps Network that allows other programs (both external systems and other
-# parts of the 3taps Network) to calculate the location to use for a posting
-# based on location-specific details within the posting such as a street address
-# or a latitude and longitude value. This process of calculating the location
-# for a posting is known as geocoding.
+#Class GeocoderClient represents server request of geocoding API (calculate
+#the location to use for a posting based on location-specific details within
+#the posting such as a street address or a latitude and longitude value).
+#
+#Its methods are used to query API with appropriate requests:
+#- geocode(geocoder_requests)
+#
+#Example:
+#
+#geocoder_client = GeocoderClient.new
+#geocoder_request = GeocoderRequest.new
+#geocoder_request.latitude = '37.77493'
+#geocoder_request.longitude = '-122.41942'
+#request = geocoder_request
+#response = geocoder_client.geocode(request)
+
 class GeocoderClient < Client
 
   def geocode(geocoder_requests)
@@ -14,5 +24,4 @@ class GeocoderClient < Client
     response = execute_post('geocoder/geocode', params)
     GeocoderResponse.from_array(decode(response))
   end
-
 end
