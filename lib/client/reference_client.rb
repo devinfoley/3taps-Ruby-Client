@@ -4,10 +4,10 @@
 #
 # Its methods are used to query API with appropriate requests:
 #  client = ReferenceClient.new
-#  client.get_categories    # => returns array of Category objects
-#  client.get_category(code)      # => returns Category object
-#  client.get_locations  # => returns array of Location objects
-#  client.get_sources     # => returns array of Source objects
+#  client.get_categories     # => returns array of Category objects
+#  client.get_category(code) # => returns Category object
+#  client.get_locations      # => returns array of Location objects
+#  client.get_sources        # => returns array of Source objects
 
 class ReferenceClient < Client
 
@@ -15,7 +15,8 @@ class ReferenceClient < Client
   #
   # Example:
   #
-  #  client.get_categories # => [Category, Category]
+  #  client = ReferenceClient.new
+  #  client.get_categories # => Array of Category
   #
   def get_categories
     response = execute_get("/reference/category")
@@ -39,7 +40,7 @@ class ReferenceClient < Client
   #
   # Example:
   #
-  #  client.get_locations # => [Location, Location]
+  #  client.get_locations # => Array of Location
   #
   def get_locations
     response = execute_get("/reference/location")
@@ -50,7 +51,7 @@ class ReferenceClient < Client
   #
   # Example:
   #
-  #  client.get_sources # => [Source, Source]
+  #  client.get_sources # => Array of Source
   #
   def get_sources
     response = execute_get("/reference/source")
