@@ -11,12 +11,10 @@
 class PostingClient < Client
 
   # Retrieves an information about a single posting.
-  # Receives +postKey+ string
-  # Returns +Posting+ object
   # 
   # Example
   #  client = PostingClient.new
-  #  client.get_posting("BF87BFW") => Posting
+  #  client.get_posting("...postKey string...") => Posting object
   #
   def get_posting(post_key)
     response = execute_get("/posting/get/" + post_key)
@@ -24,16 +22,13 @@ class PostingClient < Client
   end
 
   # Method +create_posting+ saves a single new posting and multiple new postings in 3taps.
-  # Receives +Posting+ object or array of them
-  # Returns an array of +CreateResponse+ objects
   #
   # Examples
+  #  client = PostingClient.new
+  #  client.update_posting([posting1, posting2])  #=> Array of CreateResponse objects
   #
   #  client = PostingClient.new
-  #  client.update_posting([posting1, posting2])  #=> [CreateResponse, CreateResponse]
-  #
-  #  client = PostingClient.new
-  #  client.update_posting(posting2)  #=> [UpdateResponse]
+  #  client.update_posting(posting2)  #=> Array with single CreateResponse object
   #
   def create_posting(postings)
     postings = [postings] unless postings.is_a? Array
@@ -46,16 +41,13 @@ class PostingClient < Client
   end
 
   # Method +update_posting+ updates  a single posting and multiple postings on 3taps.
-  # Receives +Posting+ object or array of them.
-  # Returns array of the +UpdateResponse+ objects
   #
-  # Examples
-  #  
+  # Examples:
   #  client = PostingClient.new
-  #  client.update_posting([posting1, posting2])  #=> [UpdateResponse, UpdateResponse]
+  #  client.update_posting([posting1, posting2])  #=> Array of UpdateResponse objects
   #
   #  client = PostingClient.new
-  #  client.update_posting(posting2)  #=> [UpdateResponse]
+  #  client.update_posting(posting)  #=> Array with single UpdateResponse object
   #
   def update_posting(postings)
     postings = [postings] unless postings.is_a? Array
@@ -68,18 +60,14 @@ class PostingClient < Client
   end
 
   # Method +delete_posting+  deletes a single posting and multiple postings from 3taps.
-  # Receives +poskKey+ string or array of them.
-  # Returns array of the +DeleteResponse+ objects
   # 
   # Examples:
+  #  client = PostingClient.new
+  #  response = client.delete_posting(...Array of postKeys strings...)     # => Array of DeleteResponse objects
   #
   #  client = PostingClient.new
-  #  keys = [posting1.postKey, posting2.postKey]
-  #  response = client.delete_posting(keys)     # => [DeleteResponse, DeleteResponse]
-  #
-  #  client = PostingClient.new
-  #  key = posting2.postKey
-  #  response = client.delete_posting(key)     # => [DeleteResponse]
+  #  key = some_posting.postKey
+  #  response = client.delete_posting(key)     # => Array with single DeleteResponse object
   #
   def delete_posting(post_keys)
     post_keys = [post_keys] unless post_keys.is_a? Array
