@@ -3,7 +3,7 @@
 # the posting such as a street address or a latitude and longitude value).
 #
 # Its methods are used to query API with appropriate requests:
-# geocode(geocoder_requests) - returns array of responses
+# geocode(requests) - returns array of responses
 #
 # Example:
 #
