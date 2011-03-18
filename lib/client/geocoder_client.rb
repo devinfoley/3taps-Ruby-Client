@@ -21,7 +21,7 @@
 class GeocoderClient < Client
 
   # Method geocode sends geocode request to Geocode API.
-  # Takes array of GeocoderRequest objects as +geocoder_requests+ parameter.
+  # Takes array of GeocoderRequest objects as +requests+ parameter.
   #
   # Examples:
   #
