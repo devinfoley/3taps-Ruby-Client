@@ -1,5 +1,8 @@
 nbproject/*
 pkg/*
 coverage/*
+rdoc/*
+rdoc/**/*
 test/custom/*
 newfile
+
