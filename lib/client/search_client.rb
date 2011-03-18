@@ -72,7 +72,7 @@ class SearchClient < Client
   #
   #  keywords = "iPad,Apple,iPhone"
   #  client = SearchClient.new
-  #  client.count(keywords)     # => BestMatchResponse
+  #  client.best_match(keywords)     # => BestMatchResponse
   # 
   def best_match(keywords)
     response = execute_get("/search/best-match", "keywords=#{keywords}")
