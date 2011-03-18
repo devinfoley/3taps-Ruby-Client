@@ -14,9 +14,9 @@
 #
 #response = client.geocode(request)
 #
-#response.code => "CAZ"
-#response.latitude => 39.77493
-#response.longitude => -122.41942
+#response.first.code => "CAZ"
+#response.first.latitude => 39.77493
+#response.first.longitude => -122.41942
 
 
 
