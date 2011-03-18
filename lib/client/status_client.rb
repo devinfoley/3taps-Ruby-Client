@@ -23,17 +23,17 @@
 #
 # Its methods are used to query API with appropriate requests:
 #  client = StatusClient .new
-#  client.update_status(postings)    # => returns message of Message object
+#  client.update_status(postings)    # => returns Message
 #  client.get_status(postings)       # => returns array of GetStatusResponse objects
-#  client.system_status              # => returns message of Message object
+#  client.system_status              # => returns Message
 #
 class StatusClient < Client
   #
   # Method +update_status+ send in status events for postings. Example:
   #
-    #  client = StatusClient.new
-    #  request = StatusUpdateRequest.new
-    #  client.update_status(request)   # => Message
+  #  client = StatusClient.new
+  #  request = StatusUpdateRequest.new
+  #  client.update_status(request)             # => Message
   #
   def update_status(postings)
     postings = [postings] unless postings.is_a? Array
@@ -46,9 +46,9 @@ class StatusClient < Client
   #
   # Method +get_status+ get status history for postings. Example:
   #
-    #  client = SearchClient.new
-    #  postings = Posting.new
-    #  response = client.get_status(postings)    # => GetStatusResponse
+  #  client = SearchClient.new
+  #  postings = Posting.new
+  #  response = client.get_status(postings)    # => Array of GetStatusResponse
   #
   def get_status(postings)
     postings = [postings] unless postings.is_a? Array
@@ -62,8 +62,8 @@ class StatusClient < Client
   #
   # Method +system_status+ get the current system status. Example:
   #
-    #  client = StatusClient.new
-    #  response = client.system_status    # => Message
+  #  client = StatusClient.new
+  #  response = client.system_status           # => Message
   #
   def system_status
     response = execute_get("/status/system")
