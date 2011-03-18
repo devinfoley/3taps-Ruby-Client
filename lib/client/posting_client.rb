@@ -38,7 +38,7 @@ class PostingClient < Client
 
     params = "data=#{data}"
     response = execute_post("posting/update", params)
-    UpdateResponse.from_array(ActiveSupport::JSON.decode(response))
+    UpdateResponse.from_hash(ActiveSupport::JSON.decode(response))
   end
 
   # Deletes postings from 3taps.
