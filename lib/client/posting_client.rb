@@ -1,14 +1,13 @@
-# ===The PostingClient class
-# Allows clients to use 3taps Posting API to store and
+# The PostingClient class allows clients to use 3taps Posting API to store and
 # retrieve postings in the 3taps system.
 #
 # Its methods are used to query API with appropriate requests:
 #  client = PostingClient.new
-#  client.get_posting(post_key)      # => returns a single +Posting+ object
-#  client.create_posting(postings)   # => returns array of +CreateResponse+ objects
-#  client.update_posting(postings)   # => returns array of +UpdateResponse+ objects
-#  client.delete_posting(post_keys)  # => returns array of +DeleteResponse+ objects
-#  client.exists_posting(posting)    # => returns array of +ExistsResponse+ objects
+#  client.get_posting(post_key)      # => returns a single Posting object
+#  client.create_posting(postings)   # => returns array of CreateResponse objects
+#  client.update_posting(postings)   # => returns array of UpdateResponse objects
+#  client.delete_posting(post_keys)  # => returns array of DeleteResponse objects
+#  client.exists_posting(posting)    # => returns array of ExistsResponse objects
 class PostingClient < Client
 
   # Returns information about a single posting.
@@ -20,7 +19,6 @@ class PostingClient < Client
   # Saves a new posting in 3taps.
   def create_posting(postings)
     postings = [postings] unless postings.is_a? Array
-
     data = "["
     data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"

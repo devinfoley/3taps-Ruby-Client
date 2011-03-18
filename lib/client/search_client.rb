@@ -1,5 +1,4 @@
-# ===The SearchClient class
-# Allows clients to query 3taps Search API for data,
+# The SearchClient class allows clients to query 3taps Search API for data,
 # and data about data.
 #
 # Its methods are used to query API with appropriate requests:
