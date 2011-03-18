@@ -23,9 +23,9 @@
 #
 # Its methods are used to query API with appropriate requests:
 #  client = StatusClient .new
-#  client.update_status(postings)    # => returns message of Message objects
+#  client.update_status(postings)    # => returns message of Message object
 #  client.get_status(postings)       # => returns array of GetStatusResponse objects
-#  client.system_status              # => returns message of Message objects
+#  client.system_status              # => returns message of Message object
 #
 class StatusClient < Client
   #
