@@ -22,26 +22,18 @@
 # external source, that external source can optionally send a status of "sent" the Status API.
 #
 # Its methods are used to query API with appropriate requests:
+#  client = StatusClient .new
+#  client.update_status(postings)    # => returns message of Message objects
+#  client.get_status(postings)       # => returns array of GetStatusResponse objects
+#  client.system_status              # => returns message of Message objects
 #
 class StatusClient < Client
   #
-  # Send in status events for postings.
-  # update_status(postings) - returns message
+  # Method +update_status+ send in status events for postings. Example:
   #
-  #  Examples:
-  #
-    #  posting_client = PostingClient.new
-    #  status_client = StatusClient.new
-    #  update_request = StatusUpdateRequest.new
-    #  posting = posting_client.get_posting("BD9FHQC")
-    #  error = Message.new(:code => 602, :message => "UFO posting error")
-    #  posting.status.errors << error
-    #  posting.status.attributes = {:postKey => "TESTKEY", :message => "UFO test message"}
-    #  posting.status.event = 'lost'
-    #  update_response = status_client.update_status(posting)
-    #
-    #  status_response.code        # => "200"
-    #  status_response.message     # => "Update"
+    #  client = StatusClient.new
+    #  request = StatusUpdateRequest.new
+    #  client.update_status(request)   # => Message
   #
   def update_status(postings)
     postings = [postings] unless postings.is_a? Array
@@ -52,25 +44,11 @@ class StatusClient < Client
     Message.new(decode(response))
   end
   #
-  # Get status history for postings.
-  # get_status(postings) - returns array of class GetStatusResponse
+  # Method +get_status+ get status history for postings. Example:
   #
-  #  Examples: 
-  #
-    #  search_request = SearchRequest.new
-    #  search_request.category = 'VAUT'
-    #  search_request.annotations = {:Make => "porsche"}
-    #  search_request.rpp = 2
-    #  search_request.retvals = ["source", "externalID"]
-    #
     #  client = SearchClient.new
-    #  search_response = client.search(search_request)
-    #  existing_postings = search_response.results
-    #  existing_postings
-    #  clientS = StatusClient.new
-    #  response = clientS.get_status(existing_postings)
-    #
-    #  response[1]      # => [{"exists" => "false"}]
+    #  postings = Posting.new
+    #  response = client.get_status(postings)    # => GetStatusResponse
   #
   def get_status(postings)
     postings = [postings] unless postings.is_a? Array
@@ -82,15 +60,10 @@ class StatusClient < Client
     GetStatusResponse.from_array(decode(response))
   end
   #
-  # Get the current system status.
-  # system_status() - returns message
-  #
-  #  Examples:
+  # Method +system_status+ get the current system status. Example:
   #
     #  client = StatusClient.new
-    #  status_response = client.system_status
-    #  status_response.code        # => "200"
-    #  status_response.message     # => "3taps is up and running!"
+    #  response = client.system_status    # => Message
   #
   def system_status
     response = execute_get("/status/system")
