@@ -63,7 +63,10 @@ class Posting < SuperModel::Base
   def to_json_for_update
     data = "['#{self.postKey}',"
     data << "{" + 'heading:' +  "'#{CGI.escape self.heading}'"
-    #data << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
+    data << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
+    data << ",source:'#{self.source}'" unless self.source.blank?
+    data << ",category:'#{self.category}'" unless self.category.blank?
+    data << ",location:'#{self.location}'" unless self.location.blank?
     if self.body.present?
       data << ',body:' + "'#{CGI.escape self.body}'"
     end
