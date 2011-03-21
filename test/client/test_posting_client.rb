@@ -85,4 +85,25 @@ class TestPostingClient < Test::Unit::TestCase
     result = client.delete_posting('post_key')
     assert_equal DeleteResponse, result.class
   end
+
+  should "test posting updation" do
+    client = PostingClient.new
+    posting1 = Posting.new
+    posting2 = Posting.new
+    post_key = "BG5MU5Y"
+    response1 = client.get_posting(post_key)
+    posting_key = response1.postKey
+    posting1.postKey = posting_key
+    posting1.heading = "Svitla Systems Inc. +++"
+    posting1.body = "Svitla Svitla Svitla"
+    response1 = client.update_posting(posting1)
+    assert_equal true, response1.success
+    response2 = client.get_posting(post_key)
+    posting_key = response2.postKey
+    posting2.postKey = posting_key
+    posting2.heading = "Svitla << Systems << Inc. << +++"
+    posting2.body = "Systems Systems Systems"
+    response2 = client.update_posting(posting2)
+    assert_equal true, response2.success
+  end
 end
