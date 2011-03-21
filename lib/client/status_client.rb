@@ -40,7 +40,7 @@ class StatusClient < Client
     params << postings.collect{|posting| "{#{posting.status.to_params}, #{posting.to_json_for_status_client}}" unless posting.status.event.empty?}.join(',')
     params << "]"
     response = execute_post("status/update", params)
-    Message.new(decode(response))
+    Message.from_hash(decode(response))
   end
   #
   # Method +get_status+ get status history for postings. Example:
@@ -66,7 +66,7 @@ class StatusClient < Client
   #
   def system_status
     response = execute_get("/status/system")
-    Message.new(decode(response))
+    Message.from_hash(decode(response))
   end
 
 end

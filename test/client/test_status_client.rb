@@ -13,9 +13,8 @@ class TestStatusClient < Test::Unit::TestCase
   should "test update status" do
     posting_client = PostingClient.new
     status_client = StatusClient.new
-    update_request = StatusUpdateRequest.new
     posting = posting_client.get_posting("BD9FHQC")
-    error = Message.new(:code => 666, :message => "UFO posting error")
+    error = Message.from_hash(:code => 666, :message => "UFO posting error")
     posting.status.errors << error
     posting.status.attributes = {:postKey => "TESTKEY", :message => "UFO test message"}
     posting.status.event = 'lost'

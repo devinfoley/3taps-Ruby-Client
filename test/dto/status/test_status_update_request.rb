@@ -8,7 +8,7 @@ class TestStatusUpdateRequest < Test::Unit::TestCase
     assert_equal Array, posting.status.errors.class
     assert_equal Hash, posting.status.attributes.class
 
-    error = Message.new(:code => 666, :message => "UFO posting error")
+    error = Message.from_hash(:code => 666, :message => "UFO posting error")
     posting.status.errors << error
     posting.status.attributes = {:postKey => "TESTKEY", :message => "UFO test message"}
     posting.status.event = 'lost'

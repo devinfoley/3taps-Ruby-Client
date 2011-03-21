@@ -42,7 +42,7 @@ class Posting < SuperModel::Base
     super(*params)
     @attributes[:images] ||= []
     @attributes[:annotations] ||= {}
-    @attributes[:status] ||= StatusUpdateRequest.new(:event => '', :timestump => nil, :attributes => {}, :errors => [])
+    @attributes[:status] ||= StatusUpdateRequest.from_hash(:event => '', :timestump => nil, :attributes => {}, :errors => [])
   end
 
   def to_json
