@@ -17,14 +17,14 @@ describe PostingClient do
 
   it "should return UpdateResponse object" do
     stub_post_and_json_decode
-    UpdateResponse.should_receive(:from_array).with([])
+    UpdateResponse.should_receive(:from_hash).with([])
     post = mock "Posting" , :to_json_for_update=>""
     @posting_client.update_posting(post).class == UpdateResponse.class#).should be_true
   end
 
   it "should return DeleteResponse object" do
     stub_post_and_json_decode
-    DeleteResponse.should_receive(:new).with([])
+    DeleteResponse.should_receive(:from_hash).with([])
     @posting_client.delete_posting("").class == DeleteResponse.class
   end
 

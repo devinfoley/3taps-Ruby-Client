@@ -23,6 +23,9 @@ class Client
     rescue
       "Some Error with Request."
     end
+    p "=============================Start GET #{@baseURL}:#{@port}#{address}=========== "
+    p  request.body_str
+    p "============================End GET"
     request.body_str
   end
 
@@ -32,6 +35,9 @@ class Client
   #  execute_post("search", "data=data")
   def execute_post( path, params = nil )
     c = Curl::Easy.http_post("#{@baseURL}:#{@port}/#{path}", params)
+    p "=============================Start POST #{@baseURL}:#{@port}/#{path}?#{params}=========== "
+    p  c.body_str
+    p "============================End POST"
     c.body_str
   end
 

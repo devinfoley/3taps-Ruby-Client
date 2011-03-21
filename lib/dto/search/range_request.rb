@@ -10,7 +10,6 @@
 # range_request.fields = ['year', 'price']
 #
 class RangeRequest < Struct.new(:search_request, :fields)
-  include HashedInitializer
 
   def add_field(field)
     fields << field
