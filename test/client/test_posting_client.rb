@@ -22,7 +22,7 @@ class TestPostingClient < Test::Unit::TestCase
     assert_equal true, response.success
 
     keys << posting_key
-    
+
     posting = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting",
@@ -86,34 +86,18 @@ class TestPostingClient < Test::Unit::TestCase
     assert_equal DeleteResponse, result.class
   end
 
-  should "test posting updation" do
+  should "test posting updation with predefined postKey" do
     client = PostingClient.new
-#    posting = Posting.new(
-#      :source => "3TAPS",
-#      :heading => "Svitla posting",
-#      :timestamp => Time.now
-#    )
-#    response = client.create_posting(posting)
-#    post_key = response.first.post_key["postKey"]
-    post_key = "BG5MUUK"
-    posting1 = Posting.new
-    posting1 = client.get_posting(post_key)
-    posting1.postKey = post_key
-    posting1.heading = "Svitla Systems Inc. +++"
-    posting1.body = "Svitla Svitla Svitla"
-    result1 = client.update_posting(posting1)
-    assert_equal true, result1.success
-    posting2 = Posting.new
-    posting2 = client.get_posting(post_key)
-    assert_equal "Svitla Systems Inc. +++", posting2.heading
-    assert_equal "Svitla Svitla Svitla", posting2.body
-    posting2.postKey = post_key
-    posting2.heading = "Svitla << Systems << Inc. << +++"
-    posting2.body = "Systems Systems Systems"
-    result2 = client.update_posting(posting2)
-    assert_equal true, result2.success
-    posting3 = client.get_posting(post_key)
-    assert_equal "Svitla << Systems << Inc. << +++", posting3.heading
-    assert_equal "Systems Systems Systems", posting3.body
+    post_key = "BG5MU5Y"
+    posting = client.get_posting(post_key)
+    new_heading = "Svitla Systems Inc. +++#{rand(100)}+++"
+    new_body = "Svitla +++#{rand(10000)}+++ test posting +++#{rand(10000)}+++ "
+    posting.body =  new_body
+    posting.heading = new_heading
+    response = client.update_posting(posting)
+    assert_equal true, response.success
+    posting = client.get_posting(post_key)
+    assert_equal new_heading, posting.heading
+    assert_equal new_body,  posting.body
   end
 end
