@@ -73,7 +73,7 @@ class PostingClient < Client
     post_keys = [post_keys] unless post_keys.is_a? Array
     params = "data=['#{post_keys.join("','")}']"
     response = execute_post("posting/delete", params)
-    DeleteResponse.from_array(decode(response))
+    DeleteResponse.from_hash(decode(response))
   end
 
   # NOT USED
