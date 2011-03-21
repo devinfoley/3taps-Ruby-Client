@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestGeoCoderRequest < Test::Unit::TestCase
-  should "recieve params and perform them" do
+  should "receive params and perform them" do
     geocoder_request = GeocoderRequest.new
     geocoder_request.latitude = '12'
     geocoder_request.longitude = '12'
