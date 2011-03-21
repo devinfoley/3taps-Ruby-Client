@@ -10,7 +10,6 @@
 #  category.from_array(array) # =>  Array of Category objects
 #
 class Category < Struct.new(:group, :category, :code, :annotations, :hidden)
-  include HashedInitializer
 
   # Method +from_array+ returns array of categories(create from json).
   # Takes value of array objects as json parameter array.

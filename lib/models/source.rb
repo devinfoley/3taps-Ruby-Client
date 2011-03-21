@@ -10,7 +10,7 @@
 #  source.from_array(array) # =>  Array of Source objects
 #
 class Source < Struct.new(:name, :code, :logo_url, :logo_sm_url, :hidden)
-  include HashedInitializer
+
 
   # Method +from_array+ returns array of sources(create from json).
   # Takes value of array objects as json parameter array.
