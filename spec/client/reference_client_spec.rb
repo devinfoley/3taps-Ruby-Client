@@ -15,7 +15,7 @@ describe ReferenceClient do
   it "should send GET request and create Category from result" do
     category_response = mock "category"
     category_code = "VAUT"
-    Category.should_receive(:new).and_return category_response
+    Category.should_receive(:from_hash).and_return category_response
 
     @reference_client.get_category(category_code).should == category_response
   end
