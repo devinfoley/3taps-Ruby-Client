@@ -14,7 +14,7 @@ class TestPostingClient < Test::Unit::TestCase
     assert_equal CreateResponse, response.first.class
     assert_nil response.first.error
     posting_key = response.first.post_key
-    posting.heading = "change"
+    posting.heading = "Svitla posting +++#{rand(100)}+++"
     posting.postKey = posting_key
     posting.body = "posting"
 
@@ -84,20 +84,5 @@ class TestPostingClient < Test::Unit::TestCase
     client = PostingClient.new
     result = client.delete_posting('post_key')
     assert_equal DeleteResponse, result.class
-  end
-
-  should "test posting updation with predefined postKey" do
-    client = PostingClient.new
-    post_key = "BG5MU5Y"
-    posting = client.get_posting(post_key)
-    new_heading = "Svitla Systems Inc. +++#{rand(100)}+++"
-    new_body = "Svitla +++#{rand(10000)}+++ test posting +++#{rand(10000)}+++ "
-    posting.body =  new_body
-    posting.heading = new_heading
-    response = client.update_posting(posting)
-    assert_equal true, response.success
-    posting = client.get_posting(post_key)
-    assert_equal new_heading, posting.heading
-    assert_equal new_body,  posting.body
   end
 end
