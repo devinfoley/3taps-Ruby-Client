@@ -33,7 +33,7 @@ class ReferenceClient < Client
   #
   def get_category(code)
     response = execute_get("/reference/category/" + code)
-    Category.new(decode(response)[0])
+    Category.from_hash(decode(response)[0])
   end
 
   # Method +get_locations+ returns the 3taps locations.
