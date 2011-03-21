@@ -1,8 +1,13 @@
-class SearchRequest
-  # annotations attribute should be a Hash object
-  attr_accessor :rpp, :page, :source, :category, :location, :heading,
-    :body, :text, :external_id, :start, :end, :annotations,
-    :trusted_annotations, :retvals
+class SearchRequest < Struct.new(:rpp, :page, :source, :category, :location, :heading, :body,
+    :text, :externalID, :start, :end, :annotations, :trustedAnnotations, :retvals) do
+    def trusted_annotations
+      trustedAnnotations
+    end
+    def external_id
+      externalID
+    end
+    end
+
 
   def add_retval(retval)
     @retvals << retval
