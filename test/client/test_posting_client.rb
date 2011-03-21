@@ -2,6 +2,7 @@ require 'helper'
 
 class TestPostingClient < Test::Unit::TestCase
   should "test single posting creation and deletion" do
+    keys = []
     client = PostingClient.new
     posting = Posting.new(
       :source => "3TAPS",
@@ -20,7 +21,22 @@ class TestPostingClient < Test::Unit::TestCase
     response = client.update_posting(posting)
     assert_equal true, response.success
 
-    response = client.delete_posting(posting_key)
+    keys << posting_key
+    
+    posting = Posting.new(
+      :source => "3TAPS",
+      :heading => "Svitla posting",
+      :timestamp => Time.now
+    )
+    response = client.create_posting(posting)
+    assert_equal Array, response.class
+    assert_equal CreateResponse, response.first.class
+    assert_nil response.first.error
+    posting_key = response.first.post_key
+
+    keys << posting_key
+
+    response = client.delete_posting(keys)
     assert_equal DeleteResponse, response.class
     assert_equal true, response.success
   end
