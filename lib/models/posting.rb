@@ -49,9 +49,12 @@ class Posting < SuperModel::Base
     posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading}'"
     posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    if self.body.present?
-      posting << ',body:' + "'#{CGI.escape self.body}'"
-    end
+    posting << ',body:' + "'#{CGI.escape self.body}'" if self.body
+    posting <<  ',price:' + "'#{self.price}'"
+    posting <<  ',currency:' + "'#{self.currency}'"
+    posting <<  ',accountName:' + "'#{self.accountName}'"
+    posting <<  ',accountID:' + "'#{self.accountID}'"
+    posting <<  ',externalURL:' + "'#{self.externalURL}'"
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
@@ -67,9 +70,12 @@ class Posting < SuperModel::Base
     data << ",source:'#{self.source}'" unless self.source.blank?
     data << ",category:'#{self.category}'" unless self.category.blank?
     data << ",location:'#{self.location}'" unless self.location.blank?
-    if self.body.present?
-      data << ",body:" + "'#{CGI.escape self.body}'"
-    end
+    data << ",body:" + "'#{CGI.escape self.body}'" if self.body
+    data <<  ',price:' + "'#{self.price}'"
+    data <<  ',currency:' + "'#{self.currency}'"
+    data <<  ',accountName:' + "'#{self.accountName}'"
+    data <<  ',accountID:' + "'#{self.accountID}'"
+    data <<  ',externalURL:' + "'#{self.externalURL}'"
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
