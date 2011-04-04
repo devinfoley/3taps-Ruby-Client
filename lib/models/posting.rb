@@ -49,7 +49,7 @@ class Posting < SuperModel::Base
     posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading}'"
     posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    posting << ',body:' + "'#{CGI.escape self.body}'" if self.body
+    posting << ',body:' + "'#{CGI.escape self.body.gsub(/\n/," ")}'"
     posting <<  ',price:' + "'#{self.price}'"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
@@ -70,7 +70,7 @@ class Posting < SuperModel::Base
     data << ",source:'#{self.source}'" unless self.source.blank?
     data << ",category:'#{self.category}'" unless self.category.blank?
     data << ",location:'#{self.location}'" unless self.location.blank?
-    data << ",body:" + "'#{CGI.escape self.body}'" if self.body
+    data << ",body:" + "'#{CGI.escape self.body.gsub(/\n/," ")}'"
     data <<  ',price:' + "'#{self.price}'"
     data <<  ',currency:' + "'#{self.currency}'"
     data <<  ',accountName:' + "'#{self.accountName}'"

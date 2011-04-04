@@ -17,7 +17,7 @@ class CreateResponse < Struct.new(:postKey, :error) do
   # array of JSON hashes.
   def self.from_array(array)
     array.collect do |element|
-      CreateResponse.new(element)
+      CreateResponse.from_hash(element)
     end
   end
 end
