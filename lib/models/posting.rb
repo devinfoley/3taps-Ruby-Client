@@ -49,7 +49,7 @@ class Posting < SuperModel::Base
     posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading}'"
     posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    posting << ',body:' + "'#{CGI.escape self.body.gsub(/\n/," ")}'"
+    posting << ',body:' + "'#{CGI.escape self.body.gsub(/\n/," ")}'" unless self.body.blank?
     posting <<  ',price:' + "'#{self.price}'"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
@@ -65,12 +65,12 @@ class Posting < SuperModel::Base
 
   def to_json_for_update
     data = "['#{self.postKey}',"
-    data << "{heading:"+  "'#{CGI.escape self.heading}'"
+    data << "{heading:"+  "'#{CGI.escape self.heading}'"  unless self.heading.blank?
     data << ",images:" + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     data << ",source:'#{self.source}'" unless self.source.blank?
     data << ",category:'#{self.category}'" unless self.category.blank?
     data << ",location:'#{self.location}'" unless self.location.blank?
-    data << ",body:" + "'#{CGI.escape self.body.gsub(/\n/," ")}'"
+    data << ",body:" + "'#{CGI.escape self.body.gsub(/\n/," ")}'" unless self.body.blank?
     data <<  ',price:' + "'#{self.price}'"
     data <<  ',currency:' + "'#{self.currency}'"
     data <<  ',accountName:' + "'#{self.accountName}'"
@@ -95,8 +95,8 @@ class Posting < SuperModel::Base
   end
   def to_json_for_status_client
     # source: 'CRAIG', externalID: 3434399120
-    data = "source:'#{CGI.escape self.source}', "
-    data << "externalID:#{CGI.escape self.externalID}"
+    data = "source:'#{CGI.escape self.source}', " unless self.source.blank?
+    data << "externalID:#{CGI.escape self.externalID}" unless self.externalID.blank?
     data
   end
 
