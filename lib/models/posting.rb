@@ -55,6 +55,7 @@ class Posting < SuperModel::Base
     posting <<  ',accountName:' + "'#{self.accountName}'"
     posting <<  ',accountID:' + "'#{self.accountID}'"
     posting <<  ',externalURL:' + "'#{self.externalURL}'"
+    posting <<  ',externalID:' + "'#{self.externalID}'"
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
@@ -76,6 +77,7 @@ class Posting < SuperModel::Base
     data <<  ',accountName:' + "'#{self.accountName}'"
     data <<  ',accountID:' + "'#{self.accountID}'"
     data <<  ',externalURL:' + "'#{self.externalURL}'"
+    data <<  ',externalID:' + "'#{self.externalID}'"
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
