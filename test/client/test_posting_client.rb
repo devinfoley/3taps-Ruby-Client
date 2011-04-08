@@ -7,6 +7,8 @@ class TestPostingClient < Test::Unit::TestCase
     posting = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting",
+      :location => "ZZZ",
+      :category => "ZZZZ",
       :timestamp => Time.now
     )
     response = client.create_posting(posting)
@@ -14,29 +16,33 @@ class TestPostingClient < Test::Unit::TestCase
     assert_equal CreateResponse, response.first.class
     assert_nil response.first.error
     posting_key = response.first.post_key
-    posting.heading = "Svitla posting +++#{rand(100)}+++"
-    posting.postKey = posting_key
-    posting.body = "posting"
-
-    response = client.update_posting(posting)
-    assert_equal true, response.success
-
-    keys << posting_key
-
-    posting = Posting.new(
-      :source => "3TAPS",
-      :heading => "Svitla posting",
-      :timestamp => Time.now
-    )
-    response = client.create_posting(posting)
-    assert_equal Array, response.class
-    assert_equal CreateResponse, response.first.class
-    assert_nil response.first.error
-    posting_key = response.first.post_key
-
-    keys << posting_key
-
-    response = client.delete_posting(keys)
+    p posting_key
+#    posting.heading = "Svitla posting +++#{rand(100)}+++"
+#    posting.postKey = posting_key
+#    posting.body = "posting"
+#   # sleep(50)
+#    response = client.update_posting(posting)
+#    p response
+#    assert_equal true, response.success
+#
+#    keys << posting_key
+#
+#    posting = Posting.new(
+#      :source => "3TAPS",
+#      :heading => "Svitla posting",
+#      :location => "ZZZ",
+#      :category => "ZZZZ",
+#      :timestamp => Time.now
+#    )
+#    response = client.create_posting(posting)
+#    assert_equal Array, response.class
+#    assert_equal CreateResponse, response.first.class
+#    assert_nil response.first.error
+#    posting_key = response.first.post_key
+#    keys << posting_key
+    p "waiting while indexed by server"
+    sleep(10)
+    response = client.delete_posting(posting_key)
     assert_equal DeleteResponse, response.class
     assert_equal true, response.success
   end
@@ -46,18 +52,23 @@ class TestPostingClient < Test::Unit::TestCase
     posting1 = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting1",
+      :location => "ZZZ",
+      :category => "ZZZZ",
       :timestamp => Time.now
     )
     posting2 = Posting.new(
       :source => "3TAPS",
       :heading => "Svitla posting2",
-      :timestamp => Time.now
+      :location => "ZZZ",
+      :category => "ZZZZ"
     )
     response = client.create_posting([posting1, posting2])
+    p response
     assert_equal Array, response.class
     assert_equal CreateResponse, response.first.class
     assert_nil response.first.error
-
+    p "waiting while indexed by server"
+    sleep(15)
     posting_key = response[0].post_key
     posting1.postKey = posting_key
     posting_key = response[1].post_key
@@ -75,9 +86,9 @@ class TestPostingClient < Test::Unit::TestCase
 
   should "test posting retrieval" do
     client = PostingClient.new
-    posting = client.get_posting("BF87BFW")
+    posting = client.get_posting("BLQ7YJD")
     assert_equal Posting, posting.class
-    assert_equal "BF87BFW", posting.postKey
+    assert_equal "BLQ7YJD", posting.postKey
   end
 
   should "test posting deletion" do

@@ -7,10 +7,10 @@
 #  response = ExistsResponse.from_hash("success" => "true")
 #  response.success       # => true
 #
-class ExistsResponse
-  attr_accessor :exists, :postKey, :error
-
-  def self.from_array(json)
-    json
+class ExistsResponse < Struct.new(:indexed, :postKey, :exists, :failures)
+  def initialize(hash = {})
+    hash.each do |key, value|
+      self.send("#{key}=".to_sym, value )
+    end
   end
 end

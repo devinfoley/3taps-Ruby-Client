@@ -54,7 +54,7 @@ class StatusClient < Client
     data = "["
     data << postings.collect{|posting| "{#{posting.to_json_for_status_client}}"}.join(',')
     data << "]"
-    params = "ids=#{data}"
+    params = "postings=#{data}"
     response = execute_post("status/get", params)
     GetStatusResponse.from_array(decode(response))
   end

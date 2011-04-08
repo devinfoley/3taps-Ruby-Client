@@ -33,10 +33,10 @@
 #  posting.to_json_for_status        # => Array of JSON objects
 class Posting < SuperModel::Base
   attributes :postKey, :heading, :body, :category, :source, :location,
-             :longitude, :latitude, :language, :price, :currency, :images,
-             :externalURL, :externalID, :accountName, :accountID, :clickCount,
-             :timestamp, :expiration, :indexed, :trustedAnnotations,
-             :annotations, :errors, :status, :history
+    :longitude, :latitude, :language, :price, :currency, :images,
+    :externalURL, :externalID, :accountName, :accountID, :clickCount,
+    :timestamp, :expiration, :indexed, :trustedAnnotations,
+    :annotations, :errors, :status, :history
 
   def initialize(*params)
     super(*params)
@@ -46,10 +46,14 @@ class Posting < SuperModel::Base
   end
 
   def to_json
-    posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading}'"
-    posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
+    posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading.to_json}'"
+    if self.timestamp
+      posting << ",timestamp: '#{(self.timestamp.utc.to_s(:db)).gsub(/\s/,"+")}'"
+    else
+      posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
+    end
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    posting << ',body:' + "'#{CGI.escape self.body.gsub(/\n/," ")}'" unless self.body.blank?
+    posting << ',body:' + "'#{CGI.escape self.body.to_json}'" unless self.body.blank?
     posting <<  ',price:' + "'#{self.price}'"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
@@ -66,12 +70,12 @@ class Posting < SuperModel::Base
 
   def to_json_for_update
     data = "['#{self.postKey}',"
-    data << "{heading:"+  "'#{CGI.escape self.heading}'"  unless self.heading.blank?
+    data << "{heading:"+  "'#{CGI.escape self.heading.to_json}'"  unless self.heading.blank?
     data << ",images:" + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     data << ",source:'#{self.source}'" unless self.source.blank?
     data << ",category:'#{self.category}'" unless self.category.blank?
     data << ",location:'#{self.location}'" unless self.location.blank?
-    data << ",body:" + "'#{CGI.escape self.body.gsub(/\n/," ")}'" unless self.body.blank?
+    data << ",body:" + "'#{CGI.escape self.body.to_json}'" unless self.body.blank?
     data <<  ',price:' + "'#{self.price}'"
     data <<  ',currency:' + "'#{self.currency}'"
     data <<  ',accountName:' + "'#{self.accountName}'"

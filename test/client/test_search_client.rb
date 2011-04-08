@@ -23,7 +23,7 @@ class TestSearchClient < Test::Unit::TestCase
     search_response = client.search(search_request)
     assert_equal SearchResponse, search_response.class
     assert_equal Array, search_response.results.class
-    assert_equal Posting, search_response.results.first.class
+    assert_equal Hash, search_response.results.first.class
   end
 
   should "get the count request result" do
@@ -47,9 +47,9 @@ class TestSearchClient < Test::Unit::TestCase
   end
 
   should "get the best match result" do
-    search_keywords = "iPad,Apple,iPhone"
+    search_keywords = "iPad Apple iPhone"
     client = SearchClient.new
-    best_match_response = client.best_match(search_keywords)
+    best_match_response = client.best_match(CGI.escape search_keywords)
     assert_equal BestMatchResponse, best_match_response.class
     assert_equal 'SELE', best_match_response.category
   end

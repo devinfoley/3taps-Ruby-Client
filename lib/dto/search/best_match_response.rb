@@ -12,9 +12,14 @@
 #  response.numResults   # => 20
 #  response.num_results  # => 20
 #
-class BestMatchResponse < Struct.new(:category, :numResults) do
+class BestMatchResponse < Struct.new(:category, :numResults, :error) do
     def num_results
       numResults
+    end
+  end
+  def initialize(hash = {})
+    hash.each do |key, value|
+      self.send("#{key}=".to_sym, value )
     end
   end
 end

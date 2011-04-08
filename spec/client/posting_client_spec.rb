@@ -30,7 +30,9 @@ describe PostingClient do
 
   it "should return boolean value" do
     stub_post_and_json_decode
-    @posting_client.exists_posting(mock("")).should be_true
+    ExistsResponse.stub!(:new).and_return mock("ExistsResponse", :exists => true)
+    ExistsResponse.should_receive(:new).with(nil)
+    @posting_client.exists_posting(mock("Posting", :to_json_for_status=>"")).exists.should be_true
   end
 end
 

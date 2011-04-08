@@ -44,7 +44,8 @@ describe SearchClient do
   it "should send GET request and create BestMatchResponse from result" do
     keywords = ""
     bestmatch_response = mock "bestmatch_response"
-    BestMatchResponse.should_receive(:from_hash).and_return bestmatch_response
+    stub_get_and_json_decode
+    BestMatchResponse.stub!(:new).and_return bestmatch_response
 
     @search_client.best_match(keywords).should == bestmatch_response
   end

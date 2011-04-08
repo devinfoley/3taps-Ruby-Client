@@ -81,8 +81,9 @@ class PostingClient < Client
   #  Returns information on the existence of postings.
   #
   def exists_posting(posting)
-    params = "ids=#{posting}"
+    params = "ids=[#{posting.to_json_for_status}]"
     response = execute_post("/posting/exists", params)
-    ExistsResponse.from_array(decode(response))
+    p decode(response)[0]
+    ExistsResponse.new(decode(response)[0])
   end
 end

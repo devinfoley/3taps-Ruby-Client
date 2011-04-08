@@ -76,7 +76,7 @@ class SearchClient < Client
   # 
   def best_match(keywords)
     response = execute_get("/search/best-match", "keywords=#{keywords}")
-    BestMatchResponse.from_hash(decode(response))
+    BestMatchResponse.new(decode(response))
   end
 
 end
