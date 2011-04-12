@@ -54,7 +54,7 @@ class Posting < SuperModel::Base
     end
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     posting << ',body:' + "'#{CGI.escape self.body.to_json}'" unless self.body.blank?
-    posting <<  ',price:' + "'#{self.price}'"
+    posting <<  ',price:' + "#{self.price.to_f}"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
     posting <<  ',accountID:' + "'#{self.accountID}'"
