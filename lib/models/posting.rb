@@ -63,7 +63,7 @@ class Posting < SuperModel::Base
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
-      posting << ',annotations:' + "[{#{annotations.join(',')}}]"
+      posting << ',annotations:' + "{#{annotations.join(',')}}"
     end
     posting  +  "}"
   end
@@ -85,7 +85,7 @@ class Posting < SuperModel::Base
     if self.annotations
       annotations = []
       self.annotations.each{|k,v| annotations << "#{k}:" + "'#{v}'"}
-      data << ",annotations:" + "[{#{annotations.join(',')}}]"
+      data << ",annotations:" + "{#{annotations.join(',')}}"
     end
     data << "}"
     data << "]"
