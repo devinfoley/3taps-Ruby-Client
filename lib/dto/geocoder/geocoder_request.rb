@@ -9,7 +9,7 @@ class GeocoderRequest < Struct.new(:latitude, :longitude, :country, :state, :cit
     result << "\"city\":\"#{CGI.escape city}\"" unless city.nil?
     result << "\"locality\":\"#{CGI.escape locality}\"" unless locality.nil?
     result << "\"postal\":\"#{CGI.escape postal}\"" unless postal.nil?
-    result << "\"tex\":\"#{CGI.escape text}\"" unless text.nil?
+    result << "\"text\":\"#{CGI.escape text}\"" unless text.nil?
     '{' + result.join(", ") + '}'
   end
 
