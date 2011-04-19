@@ -7,7 +7,7 @@
 #  response.post_key    # => String
 #  response.error       # => String
 #
-class CreateResponse < Struct.new(:postKey, :error) do
+class CreateResponse < Struct.new(:postKey, :error, :errors) do
     def post_key
       postKey
     end

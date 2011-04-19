@@ -33,7 +33,7 @@ class PostingClient < Client
   def create_posting(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json}.join(',')
+    data << postings.collect{|posting| posting.to_json.gsub("%22","")}.join(',')
     data << "]"
     params = "posts=#{data}"
     response = execute_post("/posting/create", params)
@@ -52,7 +52,7 @@ class PostingClient < Client
   def update_posting(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json_for_update}.join(',')
+    data << postings.collect{|posting| posting.to_json_for_update.gsub("%22","")}.join(',')
     data << "]"
     params = "data=#{data}"
     response = execute_post("posting/update", params)

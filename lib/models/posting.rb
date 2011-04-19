@@ -48,12 +48,12 @@ class Posting < SuperModel::Base
   def to_json
     posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading.to_s[0,255].to_json}'"
     if self.timestamp
-      posting << ",timestamp: '#{(self.timestamp.utc.to_s(:db)).gsub(/\s/,"+")}'"
+      posting << ",timestamp: '#{(self.timestamp.utc.to_s(:db)).gsub(/\s/,"+").gsub("-","/")}'"
     else
-      posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+")}'"
+      posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+").gsub("-","/")}'"
     end
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    posting << ',body:' + "'#{CGI.escape self.body.gsub!("\"","").to_json}'" unless self.body.blank?
+    posting << ',body:' + "'#{CGI.escape self.body.to_json}'" unless self.body.blank?
     posting <<  ',price:' + "#{self.price.to_f}"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
@@ -89,6 +89,7 @@ class Posting < SuperModel::Base
     end
     data << "}"
     data << "]"
+    data.gsub()
   end
 
   def to_json_for_status
