@@ -33,9 +33,9 @@ class PostingClient < Client
   def create_posting(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json.gsub("%22","")}.join(',')
+    data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"
-    params = "posts=#{data}"
+    params = "postings=#{data}"
     response = execute_post("/posting/create", params)
     CreateResponse.from_array(decode(response))
   end
