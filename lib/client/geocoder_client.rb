@@ -36,7 +36,9 @@ class GeocoderClient < Client
     params = "data=["
     params << geocoder_requests.collect{|request| "#{request.to_params}"}.join(',')
     params << "]"
+    p params
     response = execute_post('geocoder/geocode', params)
+    p response
     p decode(response)
     GeocoderResponse.from_array(decode(response))
   end

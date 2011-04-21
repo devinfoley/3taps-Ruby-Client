@@ -54,6 +54,7 @@ class Posting < SuperModel::Base
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     unless self.body.blank?
       self.body.gsub!(/[&']/,"")
+      #self.body.gsub!(/\s*<[^>]*>/,"")
       posting << ',body:' + "'#{ActiveSupport::JSON.encode(self.body)}'"
     end
     posting <<  ',price:' + "#{self.price.to_f}"
