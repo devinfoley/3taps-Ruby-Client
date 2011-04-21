@@ -36,7 +36,10 @@ class PostingClient < Client
     data << postings.collect{|posting| posting.to_json}.join(',')
     data << "]"
     params = "postings=#{data}"
+    p params
     response = execute_post("/posting/create", params)
+    p response.inspect
+    p decode(response)
     CreateResponse.from_array(decode(response))
   end
 
@@ -52,7 +55,7 @@ class PostingClient < Client
   def update_posting(postings)
     postings = [postings] unless postings.is_a? Array
     data = "["
-    data << postings.collect{|posting| posting.to_json_for_update.gsub("%22","")}.join(',')
+    data << postings.collect{|posting| posting.to_json_for_update}.join(',')
     data << "]"
     params = "data=#{data}"
     response = execute_post("posting/update", params)

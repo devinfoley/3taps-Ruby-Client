@@ -37,7 +37,6 @@ class Posting < SuperModel::Base
     :externalURL, :externalID, :accountName, :accountID, :clickCount,
     :timestamp, :expiration, :indexed, :trustedAnnotations,
     :annotations, :errors, :status, :history
-
   def initialize(*params)
     super(*params)
     @attributes[:images] ||= []
@@ -46,14 +45,17 @@ class Posting < SuperModel::Base
   end
 
   def to_json
-    posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{CGI.escape self.heading.to_s[0,254]}'"
+    posting = "{"+'source:'+"'#{self.source}'" + ',category:' + "'#{self.category}'" + ',location:' + "'#{self.location}'" + ',heading:' +  "'#{self.heading.to_s[0,254]}'"
     if self.timestamp
-      posting << ",timestamp: '#{(self.timestamp.utc.to_s(:db)).gsub(/\s/,"+").gsub("-","/")}'"
+      posting << ",timestamp: '#{(Time.at(self.timestamp).utc.to_s(:db)).gsub("-","/")}'"
     else
-      posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub(/\s/,"+").gsub("-","/")}'"
+      posting << ",timestamp: '#{(Time.now.utc.to_s(:db)).gsub("-","/")}'"
     end
     posting << ',images:' + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
-    posting << ',body:' + "'#{CGI.escape self.body}'" unless self.body.blank?
+    unless self.body.blank?
+      self.body.gsub!(/[&']/,"")
+      posting << ',body:' + "'#{ActiveSupport::JSON.encode(self.body)}'"
+    end
     posting <<  ',price:' + "#{self.price.to_f}"
     posting <<  ',currency:' + "'#{self.currency}'"
     posting <<  ',accountName:' + "'#{self.accountName}'"
@@ -70,12 +72,12 @@ class Posting < SuperModel::Base
 
   def to_json_for_update
     data = "['#{self.postKey}',"
-    data << "{heading:"+  "'#{CGI.escape self.heading}'"  unless self.heading.blank?
+    data << "{heading:"+  "'#{self.heading}'"  unless self.heading.blank?
     data << ",images:" + "[#{images.collect{ |image| "'#{image}'"}.join(',')}]"
     data << ",source:'#{self.source}'" unless self.source.blank?
     data << ",category:'#{self.category}'" unless self.category.blank?
     data << ",location:'#{self.location}'" unless self.location.blank?
-    data << ",body:" + "'#{CGI.escape self.body}'" unless self.body.blank?
+    data << ",body:" + "'#{self.body}'" unless self.body.blank?
     data <<  ',price:' + "'#{self.price}'"
     data <<  ',currency:' + "'#{self.currency}'"
     data <<  ',accountName:' + "'#{self.accountName}'"
@@ -89,21 +91,18 @@ class Posting < SuperModel::Base
     end
     data << "}"
     data << "]"
-    data.gsub()
   end
 
   def to_json_for_status
     # {source: 'CRAIG', externalID: 3434399120}
-    data = "{source: '"
-    data <<  self.source || " "
-    data << "', externalID: "
-    data << self.externalID || " "
-    data << "}"
+    data = "source:'#{self.source}', " unless self.source.blank?
+    data << "externalID: '#{self.externalID}'" unless self.externalID.blank?
+    data
   end
   def to_json_for_status_client
     # source: 'CRAIG', externalID: 3434399120
-    data = "source:'#{CGI.escape self.source}', " unless self.source.blank?
-    data << "externalID:#{CGI.escape self.externalID}" unless self.externalID.blank?
+    data = "source:'#{self.source}', " unless self.source.blank?
+    data << "externalID: '#{self.externalID}'" unless self.externalID.blank?
     data
   end
 
