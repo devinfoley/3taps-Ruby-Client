@@ -35,8 +35,6 @@ class Client
     c = Curl::Easy.new("#{@baseURL}:#{@port}/#{path}")
     param, data = params.split("=",2)
     c.http_post(param.to_s + '=' + c.escape(data.to_s))
-    c.timeout = TIMEOUT
-    c.perform
     c.body_str
   end
 
